@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 // gameBoard Module
 const gameBoard = (function () {
   const _gameBoardContents = ["X", "O", "", "O", "X", "O", "X", "O", "<3"];
@@ -6,8 +5,8 @@ const gameBoard = (function () {
   // gameboard creator
   const _container = document.querySelector(".gameBoardContainer");
 
-  //listeners
-  document.querySelector("button").addEventListener("click", showMoves)
+  // listeners
+  document.querySelector("button").addEventListener("click", showMoves);
   // render
   function _renderSquares(arrayItem) {
     const square = document.createElement("div");
