@@ -1,6 +1,6 @@
 // gameBoard Module
 const gameBoard = (function () {
-  const _gameBoardContents = ["X", "O", "O", "O", "X", "O", "X", "O", "<3"];
+  const gameBoardContents = ["T", "I", "C", "T", "A", "C", "T", "O", "E"];
 
   // gameboard creator
   const _container = document.querySelector(".gameBoardContainer");
@@ -11,7 +11,8 @@ const gameBoard = (function () {
   function _renderSquares(arrayItem) {
     const square = document.createElement("div");
     square.setAttribute("data-value", [arrayItem]);
-    square.textContent = _gameBoardContents[arrayItem];
+    square.textContent = gameBoardContents[arrayItem];
+    square.addEventListener("click", game.addSymbolToBoard);
     _container.appendChild(square);
   }
 
@@ -23,17 +24,18 @@ const gameBoard = (function () {
 
   function showMoves() {
     _emptySquares();
-    for (let i = 0; i < _gameBoardContents.length; i++) {
+    for (let i = 0; i < gameBoardContents.length; i++) {
       _renderSquares(i);
     }
   }
   // returned
   return {
     showMoves,
+    gameBoardContents,
   };
 })();
 
-const Players = (function () {
+const players = (function () {
   const playerFactory = (name, symbol) => {
     return { name, symbol };
   };
@@ -46,16 +48,34 @@ const Players = (function () {
   playerOneBtn.addEventListener("click", addPlayerOne);
   playerTwoBtn.addEventListener("click", addPlayerTwo);
 
-  const gameArray = ["X", "O", "O", "O", "X", "O", "X", "O", "<3"];
-
   function addPlayerOne() {
-    return (playerOne = playerFactory(prompt("name?"), prompt("symbol?")));
+   (playerOne = playerFactory(prompt("name?"), "X"));
   }
   function addPlayerTwo() {
-    return (playerTwo = playerFactory(prompt("name?"), prompt("symbol?")));
+    return (playerTwo = playerFactory(prompt("name?"), "O"));
+  }
+})();
+
+
+
+
+const game = (function () {
+  // selectors
+
+  // listener test
+
+  function addSymbolToBoard() {
+    const index = this.getAttribute("data-value");
+    if (this.textContent) {
+      console.log("not empty");
+    } else {
+      gameBoard.gameBoardContents[index] = playerOne.symbol;
+      console.log(gameBoard.gameBoardContents);
+      gameBoard.showMoves();
+    }
   }
 
   return {
-    playerFactory,
+    addSymbolToBoard,
   };
 })();
