@@ -14,7 +14,15 @@ const gameBoard = (function () {
     square.textContent = _gameBoardContents[arrayItem];
     _container.appendChild(square);
   }
+  
+  function _emptySquares() {
+    while (_container.firstChild) {
+      _container.removeChild(_container.firstChild)
+    }
+  }
+
   function showMoves() {
+    _emptySquares()
     for (let i = 0; i < _gameBoardContents.length; i++) {
       _renderSquares(i);
     }
