@@ -179,9 +179,16 @@ const gameBoard = (function () {
 const currentView = (function () {
   // selectors and constants
   const playModeContainer = document.querySelector(".playSelect");
-  let playMode = ""
+  const instruction = document.querySelector(".instruction");
+  const announce = document.querySelector(".announce");
+
+  // helper functions
+  function updateText(selector, message) {
+    selector.textContent = message;
+  }
   // create playMode buttons
   function playModeSelection() {
+    updateText(instruction, "Pick a gamemode")
     // pvp button
     const pvp = document.createElement("button");
     pvp.textContent = "2 players";
@@ -198,13 +205,12 @@ const currentView = (function () {
 
   function showPlayerForm() {
     // Temp
-    log("noob")
     if (this.className === "pvp") {
-      log("pvp selected")
+      updateText(instruction, "pvp selected")
     } else {
-      log("pvc selected")
+      updateText(instruction, "pvc selected")
     }
-    log("do stuff: show form");
+    // remove playmode buttons
     while (playModeContainer.firstChild) {
       playModeContainer.removeChild(playModeContainer.firstChild);
     }
