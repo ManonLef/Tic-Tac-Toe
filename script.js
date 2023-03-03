@@ -26,7 +26,7 @@ const gameBoard = (function () {
 
   function showMoves() {
     _emptySquares();
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < gameBoardContents.length; i++) {
       _renderSquares(i);
     }
   }
@@ -72,6 +72,7 @@ const game = (function () {
     } else {
       gameBoard.gameBoardContents[index] = playerSymbol;
       gameBoard.showMoves();
+      checkWinningCombo();
       switchPlayer();
     }
   }
@@ -90,9 +91,27 @@ const game = (function () {
     }
   }
 
+  function checkWinningCombo() {
+    const array = gameBoard.gameBoardContents;
+    if (
+      // horizontal win conditions
+      (array[0] === (array[1] && array[2]) && array[0] !== "") ||
+      (array[3] === (array[4] && array[5]) && array[3] !== "") ||
+      (array[6] === (array[7] && array[8]) && array[6] !== "") ||
+      // vertical win conditions
+      (array[0] === (array[3] && array[6]) && array[0] !== "") ||
+      (array[1] === (array[4] && array[7]) && array[1] !== "") ||
+      (array[2] === (array[5] && array[8]) && array[2] !== "") ||
+      //diagonal win conditions
+      (array[0] === (array[4] && array[8]) && array[0] !== "") ||
+      (array[2] === (array[4] && array[6]) && array[2] !== "")
+    ) {
+      log("we have a winner");
+    }
+  }
+
   return {
     addSymbolToBoard,
-    switchPlayer,
   };
 })();
 
