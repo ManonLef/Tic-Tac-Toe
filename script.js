@@ -3,49 +3,6 @@ function log(msg) {
   console.log(msg);
 }
 
-// --------------------GAMEBOARD MODULE------------------------------- //
-const gameBoard = (function () {
-  // selectors and pointers
-  const container = document.querySelector(".gameBoardContainer");
-  const gameArray = 
-  // render
-  function renderSquares(arrayItem) {
-    const square = document.createElement("div");
-    square.setAttribute("data-value", [arrayItem]);
-    square.textContent = game.gameArray[arrayItem];
-    square.addEventListener("click", game.addSymbolToBoard);
-    container.appendChild(square);
-  }
-  
-  function removeGrid() {
-    while (container.firstChild) {
-      container.removeChild(container.firstChild);
-    }
-  }
-
-  function showMoves() {
-    for (let i = 0; i < game.gameArray.length; i++) {
-      renderSquares(i);
-    }
-  }
-
-  function resetArray() {
-    for (let i = 0; i < game.gameArray.length; i++) {
-      game.gameArray[i] = "";
-    }
-  }
-
-  function newGame() {
-    resetArray();
-    showMoves();
-  }
-  // globally accessible
-  return {
-    showMoves,
-    newGame,
-  };
-})();
-
 // --------------------PLAYERS MODULE------------------------------- //
 
 const players = (function () {
@@ -154,5 +111,49 @@ const game = (function () {
   return {
     addSymbolToBoard,
     gameArray,
+  };
+})();
+
+// --------------------GAMEBOARD MODULE------------------------------- //
+const gameBoard = (function () {
+  // selectors and pointers
+  const container = document.querySelector(".gameBoardContainer");
+  const gameArray = game.gameArray;
+  // render
+  function renderSquares(arrayItem) {
+    const square = document.createElement("div");
+    square.setAttribute("data-value", [arrayItem]);
+    square.textContent = gameArray[arrayItem];
+    square.addEventListener("click", game.addSymbolToBoard);
+    container.appendChild(square);
+  }
+  
+  function removeGrid() {
+    while (container.firstChild) {
+      container.removeChild(container.firstChild);
+    }
+  }
+
+  function showMoves() {
+    removeGrid()
+    for (let i = 0; i < gameArray.length; i++) {
+      renderSquares(i);
+    }
+  }
+
+  function resetArray() {
+    for (let i = 0; i < gameArray.length; i++) {
+      gameArray[i] = "";
+    }
+  }
+
+  function newGame() {
+    resetArray();
+    showMoves();
+  }
+  // globally accessible
+  return {
+    showMoves,
+    newGame,
   };
 })();
