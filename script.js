@@ -2,15 +2,17 @@
 function log(msg) {
   console.log(msg);
 }
-// --------------------GAMOEBOARD MODULE------------------------------- //
+// --------------------GAMEBOARD MODULE------------------------------- //
 const gameBoard = (function () {
   const gameBoardContents = ["", "", "", "", "", "", "", "", ""];
 
   // selectors
-  const startButton = document.querySelector(".start");
+  // // start button remove this and listener if unneeded
+  // const startButton = document.querySelector(".start");
 
   // listener
-  startButton.addEventListener("click", showMoves)
+  // // start button remove this and selector if unneeded
+  // startButton.addEventListener("click", showMoves);
 
   // gameboard creator
   const container = document.querySelector(".gameBoardContainer");
@@ -36,10 +38,22 @@ const gameBoard = (function () {
       renderSquares(i);
     }
   }
+
+  function resetArray() {
+    for (let i = 0; i < gameBoardContents.length; i++) {
+      gameBoardContents[i] = "";
+    }
+  }
+
+  function newGame() {
+    resetArray();
+    showMoves();
+  }
   // returned
   return {
     showMoves,
     gameBoardContents,
+    newGame,
   };
 })();
 
@@ -78,9 +92,13 @@ const game = (function () {
     } else {
       gameBoard.gameBoardContents[index] = playerSymbol;
       gameBoard.showMoves();
-      checkWinningCombo();
-      switchPlayer();
+      endMove();
     }
+  }
+
+  function endMove() {
+    checkWinningCombo();
+    switchPlayer();
   }
 
   // player Switch
@@ -118,6 +136,7 @@ const game = (function () {
       } else {
         log(`the winner is ${playerTwo.name}`);
       }
+      endGame();
     } else if (
       (array[0] &&
         array[1] &&
@@ -130,7 +149,15 @@ const game = (function () {
         array[8]) !== ""
     ) {
       log("It's a TIE");
+      endGame();
     }
+  }
+
+  function endGame() {
+    log("END, restarting");
+    setTimeout(() => {
+      gameBoard.newGame();
+    }, 1200);
   }
 
   return {
@@ -138,4 +165,4 @@ const game = (function () {
   };
 })();
 
-//gameBoard.showMoves();
+gameBoard.showMoves();
