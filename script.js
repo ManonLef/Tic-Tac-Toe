@@ -1,12 +1,10 @@
 // gameBoard Module
 const gameBoard = (function () {
-  const gameBoardContents = ["T", "I", "C", "T", "A", "C", "T", "O", "E"];
+  const gameBoardContents = ["", "", "", "", "", "", "", "", ""];
 
   // gameboard creator
   const _container = document.querySelector(".gameBoardContainer");
 
-  // listeners
-  document.querySelector("button").addEventListener("click", showMoves);
   // render
   function _renderSquares(arrayItem) {
     const square = document.createElement("div");
@@ -23,9 +21,12 @@ const gameBoard = (function () {
   }
 
   function showMoves() {
+    console.log("showmoves running")
     _emptySquares();
-    for (let i = 0; i < gameBoardContents.length; i++) {
+    console.log("empty running")
+    for (let i = 0; i < 9; i++) {
       _renderSquares(i);
+      console.log("rendering " + `$[i]`)
     }
   }
   // returned
@@ -49,24 +50,37 @@ const players = (function () {
   playerTwoBtn.addEventListener("click", addPlayerTwo);
 
   function addPlayerOne() {
-   (playerOne = playerFactory(prompt("name?"), "X"));
+    return playerOne = playerFactory(prompt("player one name?"), "X");
   }
   function addPlayerTwo() {
-    return (playerTwo = playerFactory(prompt("name?"), "O"));
+    return playerTwo = playerFactory(prompt("player two name?"), "O");
   }
+
+  return {
+    addPlayerOne,
+    addPlayerTwo,
+  };
 })();
-
-
-
 
 const game = (function () {
   // selectors
+  const playBtn = document.querySelector(".play");
+  // listener
+  playBtn.addEventListener("click", startGame);
 
-  // listener test
+  function startGame() {
+    
+    players.addPlayerOne();
+    gameBoard.gameBoardContents = ["", "", "", "T", "A", "C", "T", "O", "E"];
+    console.log(gameBoard.gameBoardContents);
+
+    gameBoard.showMoves();
+    
+  }
 
   function addSymbolToBoard() {
     const index = this.getAttribute("data-value");
-    if (this.textContent) {
+    if (gameBoard.gameBoardContents[index] !== "") {
       console.log("not empty");
     } else {
       gameBoard.gameBoardContents[index] = playerOne.symbol;
@@ -77,5 +91,10 @@ const game = (function () {
 
   return {
     addSymbolToBoard,
+    playBtn,
+    startGame
   };
 })();
+
+
+gameBoard.showMoves();
