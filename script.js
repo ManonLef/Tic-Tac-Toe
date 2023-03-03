@@ -8,7 +8,11 @@ function log(msg) {
 
 const players = (function () {
   // player factory function
-  const playerFactory = (name, symbol, currentPlayer) => ({ name, symbol, currentPlayer });
+  const playerFactory = (name, symbol, currentPlayer) => ({
+    name,
+    symbol,
+    currentPlayer,
+  });
 
   // add players
   function addPlayerOne() {
@@ -17,7 +21,7 @@ const players = (function () {
   function addPlayerTwo() {
     playerTwo = playerFactory("You", "O", false);
   }
-  
+
   // globally accessible
   return {
     addPlayerOne,
@@ -33,7 +37,7 @@ players.addPlayerTwo();
 // -------------------- GAME MODULE ------------------------------- //
 
 const game = (function () {
-  // variables 
+  // variables
   const gameArray = ["", "", "", "", "", "", "", "", ""];
   let playerSymbol = playerOne.symbol;
 
@@ -127,7 +131,7 @@ const gameBoard = (function () {
   // selectors and variables
   const container = document.querySelector(".gameBoardContainer");
   const gameArray = game.gameArray;
-  
+
   // render functions
   function renderSquares(arrayItem) {
     const square = document.createElement("div");
@@ -136,7 +140,7 @@ const gameBoard = (function () {
     square.addEventListener("click", game.addSymbolToBoard);
     container.appendChild(square);
   }
-  
+
   function removeGrid() {
     while (container.firstChild) {
       container.removeChild(container.firstChild);
@@ -144,7 +148,7 @@ const gameBoard = (function () {
   }
 
   function displayArray() {
-    removeGrid()
+    removeGrid();
     for (let i = 0; i < gameArray.length; i++) {
       renderSquares(i);
     }
@@ -168,5 +172,50 @@ const gameBoard = (function () {
   return {
     displayArray,
     newGame,
+  };
+})();
+
+// -------------------- GAME MODULE ------------------------------- //
+const currentView = (function () {
+  // selectors and constants
+  const playModeContainer = document.querySelector(".playSelect");
+  let playMode = ""
+  // create playMode buttons
+  function playModeSelection() {
+    // pvp button
+    const pvp = document.createElement("button");
+    pvp.textContent = "2 players";
+    pvp.className = "pvp";
+    pvp.addEventListener("click", showPlayerForm);
+    playModeContainer.appendChild(pvp);
+    // pvc button
+    const pvc = document.createElement("button");
+    pvc.textContent = "vs computer";
+    pvc.className = "pvc"
+    pvc.addEventListener("click", showPlayerForm /* p1 only */);
+    playModeContainer.appendChild(pvc);
+  }
+
+  function showPlayerForm() {
+    // Temp
+    log("noob")
+    if (this.className === "pvp") {
+      log("pvp selected")
+    } else {
+      log("pvc selected")
+    }
+    log("do stuff: show form");
+    while (playModeContainer.firstChild) {
+      playModeContainer.removeChild(playModeContainer.firstChild);
+    }
+    // End Temp
+  }
+
+  // Temp Render
+  playModeSelection();
+
+  // globally accessible
+  return {
+    playModeSelection,
   };
 })();
