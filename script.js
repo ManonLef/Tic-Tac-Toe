@@ -95,19 +95,30 @@ const game = (function () {
     const array = gameBoard.gameBoardContents;
     if (
       // horizontal win conditions
-      (array[0] === (array[1] && array[2]) && array[0] !== "") ||
-      (array[3] === (array[4] && array[5]) && array[3] !== "") ||
-      (array[6] === (array[7] && array[8]) && array[6] !== "") ||
+      (array[0] === array[1] && array[0] === array[2] && array[0] !== "") ||
+      (array[3] === array[4] && array[3] === array[5] && array[3] !== "") ||
+      (array[6] === array[7] && array[6] === array[8] && array[6] !== "") ||
       // vertical win conditions
-      (array[0] === (array[3] && array[6]) && array[0] !== "") ||
-      (array[1] === (array[4] && array[7]) && array[1] !== "") ||
-      (array[2] === (array[5] && array[8]) && array[2] !== "") ||
+      (array[0] === array[3] && array[0] === array[6] && array[0] !== "") ||
+      (array[1] === array[4] && array[1] === array[7] && array[1] !== "") ||
+      (array[2] === array[5] && array[2] === array[8] && array[2] !== "") ||
       //diagonal win conditions
-      (array[0] === (array[4] && array[8]) && array[0] !== "") ||
-      (array[2] === (array[4] && array[6]) && array[2] !== "")
+      (array[0] === array[4] && array[0] === array[8] && array[0] !== "") ||
+      (array[2] === array[4] && array[2] === array[6] && array[2] !== "")
     ) {
       log("we have a winner");
-    }
+    } else if ((array[0] &&
+      array[1] &&
+      array[2] &&
+      array[3] &&
+      array[4] &&
+      array[5] &&
+      array[6] &&
+      array[7] &&
+      array[8]) !== ""
+  ) {
+    log("It's a TIE")
+  }
   }
 
   return {
