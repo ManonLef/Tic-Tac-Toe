@@ -1,6 +1,10 @@
-// gameBoard Module
+// temp test functions
+function log(msg) {
+  console.log(msg);
+}
+// --------------------GAMOEBOARD MODULE------------------------------- //
 const gameBoard = (function () {
-  const gameBoardContents = ["", "", "", "", "", "", "", "", ""];
+  const gameBoardContents = ["", "I", "", "", "A", "", "", "O", ""];
 
   // gameboard creator
   const _container = document.querySelector(".gameBoardContainer");
@@ -21,12 +25,9 @@ const gameBoard = (function () {
   }
 
   function showMoves() {
-    console.log("showmoves running")
     _emptySquares();
-    console.log("empty running")
     for (let i = 0; i < 9; i++) {
       _renderSquares(i);
-      console.log("rendering " + `$[i]`)
     }
   }
   // returned
@@ -36,24 +37,18 @@ const gameBoard = (function () {
   };
 })();
 
+// --------------------PLAYERS MODULE------------------------------- //
+
 const players = (function () {
   const playerFactory = (name, symbol) => {
     return { name, symbol };
   };
 
-  // selectors
-  const playerOneBtn = document.querySelector(".player-one");
-  const playerTwoBtn = document.querySelector(".player-two");
-
-  // listeners
-  playerOneBtn.addEventListener("click", addPlayerOne);
-  playerTwoBtn.addEventListener("click", addPlayerTwo);
-
   function addPlayerOne() {
-    return playerOne = playerFactory(prompt("player one name?"), "X");
+    return (playerOne = playerFactory("Manon", "X"));
   }
   function addPlayerTwo() {
-    return playerTwo = playerFactory(prompt("player two name?"), "O");
+    return (playerTwo = playerFactory("You", "O"));
   }
 
   return {
@@ -62,39 +57,24 @@ const players = (function () {
   };
 })();
 
+// --------------------GAME MODULE------------------------------- //
+
 const game = (function () {
-  // selectors
-  const playBtn = document.querySelector(".play");
-  // listener
-  playBtn.addEventListener("click", startGame);
-
-  function startGame() {
-    
-    players.addPlayerOne();
-    gameBoard.gameBoardContents = ["", "", "", "T", "A", "C", "T", "O", "E"];
-    console.log(gameBoard.gameBoardContents);
-
-    gameBoard.showMoves();
-    
-  }
-
   function addSymbolToBoard() {
     const index = this.getAttribute("data-value");
     if (gameBoard.gameBoardContents[index] !== "") {
-      console.log("not empty");
+      log("square is not empty")
     } else {
       gameBoard.gameBoardContents[index] = playerOne.symbol;
-      console.log(gameBoard.gameBoardContents);
       gameBoard.showMoves();
     }
   }
 
   return {
     addSymbolToBoard,
-    playBtn,
-    startGame
   };
 })();
 
-
 gameBoard.showMoves();
+players.addPlayerOne();
+players.addPlayerTwo();
