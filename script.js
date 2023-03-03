@@ -7,6 +7,14 @@ function log(msg) {
 // -------------------- PLAYERS MODULE ------------------------------- //
 
 const players = (function () {
+  // selectors
+  const submitNamesBtn = document.querySelector(".submit-names");
+  const playerOneName = document.querySelector("#playerOneName")
+  const playerTwoName = document.querySelector("#playerTwoName")
+
+  // listeners 
+  submitNamesBtn.addEventListener("click", setPlayerNames)
+
   // player factory function
   const playerFactory = (name, symbol, currentPlayer) => ({
     name,
@@ -15,11 +23,17 @@ const players = (function () {
   });
 
   // add players
-  function addPlayerOne() {
-    playerOne = playerFactory("Manon", "X", true);
+  function addPlayerOne(name) {
+    playerOne = playerFactory(name, "X", true);
   }
-  function addPlayerTwo() {
-    playerTwo = playerFactory("You", "O", false);
+  function addPlayerTwo(name) {
+    playerTwo = playerFactory(name, "O", false);
+  }
+
+  function setPlayerNames(event) {
+    event.preventDefault()
+    playerOne.name = playerOneName.value;
+    playerTwo.name = playerTwoName.value;
   }
 
   // globally accessible
@@ -181,6 +195,7 @@ const currentView = (function () {
   const playModeContainer = document.querySelector(".playSelect");
   const instruction = document.querySelector(".instruction");
   const announce = document.querySelector(".announce");
+  const playerForm = document.querySelector(".playerForm");
 
   // helper functions
   function updateText(selector, message) {
@@ -188,7 +203,7 @@ const currentView = (function () {
   }
   // create playMode buttons
   function playModeSelection() {
-    updateText(instruction, "Pick a gamemode")
+    updateText(instruction, "Pick a gamemode");
     // pvp button
     const pvp = document.createElement("button");
     pvp.textContent = "2 players";
@@ -198,22 +213,25 @@ const currentView = (function () {
     // pvc button
     const pvc = document.createElement("button");
     pvc.textContent = "vs computer";
-    pvc.className = "pvc"
+    pvc.className = "pvc";
     pvc.addEventListener("click", showPlayerForm /* p1 only */);
     playModeContainer.appendChild(pvc);
   }
 
   function showPlayerForm() {
     // Temp
-    if (this.className === "pvp") {
-      updateText(instruction, "pvp selected")
-    } else {
-      updateText(instruction, "pvc selected")
-    }
-    // remove playmode buttons
     while (playModeContainer.firstChild) {
       playModeContainer.removeChild(playModeContainer.firstChild);
     }
+
+    if (this.className === "pvp") {
+      updateText(instruction, "Choose your names");
+      playerForm.removeAttribute("hidden")
+    } else {
+      updateText(instruction, "pvc selected");
+    }
+    // remove playmode buttons
+
     // End Temp
   }
 
