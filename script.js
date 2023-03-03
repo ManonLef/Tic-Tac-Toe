@@ -3,11 +3,8 @@ function log(msg) {
   console.log(msg);
 }
 
-log("to start: gameBoard.showMoves()")
-
 // --------------------GAMEBOARD MODULE------------------------------- //
 const gameBoard = (function () {
-  const gameBoardContents = ["", "", "", "", "", "", "", "", ""];
 
   // gameboard creator
   const container = document.querySelector(".gameBoardContainer");
@@ -16,7 +13,7 @@ const gameBoard = (function () {
   function renderSquares(arrayItem) {
     const square = document.createElement("div");
     square.setAttribute("data-value", [arrayItem]);
-    square.textContent = gameBoardContents[arrayItem];
+    square.textContent = game.gameBoardContents[arrayItem];
     square.addEventListener("click", game.addSymbolToBoard);
     container.appendChild(square);
   }
@@ -29,14 +26,14 @@ const gameBoard = (function () {
 
   function showMoves() {
     emptySquares();
-    for (let i = 0; i < gameBoardContents.length; i++) {
+    for (let i = 0; i < game.gameBoardContents.length; i++) {
       renderSquares(i);
     }
   }
 
   function resetArray() {
-    for (let i = 0; i < gameBoardContents.length; i++) {
-      gameBoardContents[i] = "";
+    for (let i = 0; i < game.gameBoardContents.length; i++) {
+      game.gameBoardContents[i] = "";
     }
   }
 
@@ -47,7 +44,6 @@ const gameBoard = (function () {
   // returned
   return {
     showMoves,
-    gameBoardContents,
     newGame,
   };
 })();
@@ -78,14 +74,16 @@ players.addPlayerTwo();
 // --------------------GAME MODULE------------------------------- //
 
 const game = (function () {
+    const gameBoardContents = ["", "", "", "", "", "", "", "", ""];
+
   let playerSymbol = playerOne.symbol;
 
   function addSymbolToBoard() {
     const index = this.getAttribute("data-value");
-    if (gameBoard.gameBoardContents[index] !== "") {
+    if (gameBoardContents[index] !== "") {
       log("square is not empty");
     } else {
-      gameBoard.gameBoardContents[index] = playerSymbol;
+      gameBoardContents[index] = playerSymbol;
       gameBoard.showMoves();
       endMove();
     }
@@ -111,7 +109,7 @@ const game = (function () {
   }
 
   function checkWinningCombo() {
-    const array = gameBoard.gameBoardContents;
+    const array = gameBoardContents;
     if (
       // horizontal win conditions
       (array[0] === array[1] && array[0] === array[2] && array[0] !== "") ||
@@ -157,5 +155,6 @@ const game = (function () {
 
   return {
     addSymbolToBoard,
+    gameBoardContents
   };
 })();
