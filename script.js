@@ -6,28 +6,34 @@ function log(msg) {
 const gameBoard = (function () {
   const gameBoardContents = ["", "", "", "", "", "", "", "", ""];
 
+  // selectors
+  const startButton = document.querySelector(".start");
+
+  // listener
+  startButton.addEventListener("click", showMoves)
+
   // gameboard creator
-  const _container = document.querySelector(".gameBoardContainer");
+  const container = document.querySelector(".gameBoardContainer");
 
   // render
-  function _renderSquares(arrayItem) {
+  function renderSquares(arrayItem) {
     const square = document.createElement("div");
     square.setAttribute("data-value", [arrayItem]);
     square.textContent = gameBoardContents[arrayItem];
     square.addEventListener("click", game.addSymbolToBoard);
-    _container.appendChild(square);
+    container.appendChild(square);
   }
 
-  function _emptySquares() {
-    while (_container.firstChild) {
-      _container.removeChild(_container.firstChild);
+  function emptySquares() {
+    while (container.firstChild) {
+      container.removeChild(container.firstChild);
     }
   }
 
   function showMoves() {
-    _emptySquares();
+    emptySquares();
     for (let i = 0; i < gameBoardContents.length; i++) {
-      _renderSquares(i);
+      renderSquares(i);
     }
   }
   // returned
@@ -102,23 +108,29 @@ const game = (function () {
       (array[0] === array[3] && array[0] === array[6] && array[0] !== "") ||
       (array[1] === array[4] && array[1] === array[7] && array[1] !== "") ||
       (array[2] === array[5] && array[2] === array[8] && array[2] !== "") ||
-      //diagonal win conditions
+      // diagonal win conditions
       (array[0] === array[4] && array[0] === array[8] && array[0] !== "") ||
       (array[2] === array[4] && array[2] === array[6] && array[2] !== "")
     ) {
       log("we have a winner");
-    } else if ((array[0] &&
-      array[1] &&
-      array[2] &&
-      array[3] &&
-      array[4] &&
-      array[5] &&
-      array[6] &&
-      array[7] &&
-      array[8]) !== ""
-  ) {
-    log("It's a TIE")
-  }
+      if (playerOne.currentPlayer) {
+        log(`the winner is ${playerOne.name}`);
+      } else {
+        log(`the winner is ${playerTwo.name}`);
+      }
+    } else if (
+      (array[0] &&
+        array[1] &&
+        array[2] &&
+        array[3] &&
+        array[4] &&
+        array[5] &&
+        array[6] &&
+        array[7] &&
+        array[8]) !== ""
+    ) {
+      log("It's a TIE");
+    }
   }
 
   return {
@@ -126,4 +138,4 @@ const game = (function () {
   };
 })();
 
-gameBoard.showMoves();
+//gameBoard.showMoves();
