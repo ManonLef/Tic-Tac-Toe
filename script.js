@@ -4,7 +4,7 @@ function log(msg) {
 }
 // --------------------GAMOEBOARD MODULE------------------------------- //
 const gameBoard = (function () {
-  const gameBoardContents = ["", "I", "", "", "A", "", "", "O", ""];
+  const gameBoardContents = ["", "", "", "", "", "", "", "", ""];
 
   // gameboard creator
   const _container = document.querySelector(".gameBoardContainer");
@@ -40,15 +40,16 @@ const gameBoard = (function () {
 // --------------------PLAYERS MODULE------------------------------- //
 
 const players = (function () {
-  const playerFactory = (name, symbol) => {
-    return { name, symbol };
+  // player factory function
+  const playerFactory = (name, symbol, currentPlayer) => {
+    return { name, symbol, currentPlayer };
   };
 
   function addPlayerOne() {
-    return (playerOne = playerFactory("Manon", "X"));
+    playerOne = playerFactory("Manon", "X", true);
   }
   function addPlayerTwo() {
-    return (playerTwo = playerFactory("You", "O"));
+    playerTwo = playerFactory("You", "O", false);
   }
 
   return {
@@ -57,24 +58,42 @@ const players = (function () {
   };
 })();
 
+players.addPlayerOne();
+players.addPlayerTwo();
 // --------------------GAME MODULE------------------------------- //
 
 const game = (function () {
+  let playerSymbol = playerOne.symbol;
+
   function addSymbolToBoard() {
     const index = this.getAttribute("data-value");
     if (gameBoard.gameBoardContents[index] !== "") {
-      log("square is not empty")
+      log("square is not empty");
     } else {
-      gameBoard.gameBoardContents[index] = playerOne.symbol;
+      gameBoard.gameBoardContents[index] = playerSymbol;
       gameBoard.showMoves();
+      switchPlayer();
+    }
+  }
+
+  // player Switch
+
+  function switchPlayer() {
+    if (playerOne.currentPlayer) {
+      playerOne.currentPlayer = false;
+      playerTwo.currentPlayer = true;
+      playerSymbol = playerTwo.symbol;
+    } else {
+      playerOne.currentPlayer = true;
+      playerTwo.currentPlayer = false;
+      playerSymbol = playerOne.symbol;
     }
   }
 
   return {
     addSymbolToBoard,
+    switchPlayer,
   };
 })();
 
 gameBoard.showMoves();
-players.addPlayerOne();
-players.addPlayerTwo();
