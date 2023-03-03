@@ -1,45 +1,50 @@
-// temp test functions
+// Temporary test functions
 function log(msg) {
   console.log(msg);
 }
+// End temporary test functions
 
-// --------------------PLAYERS MODULE------------------------------- //
+// -------------------- PLAYERS MODULE ------------------------------- //
 
 const players = (function () {
   // player factory function
-  const playerFactory = (name, symbol, currentPlayer) => {
-    return { name, symbol, currentPlayer };
-  };
+  const playerFactory = (name, symbol, currentPlayer) => ({ name, symbol, currentPlayer });
 
+  // add players
   function addPlayerOne() {
     playerOne = playerFactory("Manon", "X", true);
   }
   function addPlayerTwo() {
     playerTwo = playerFactory("You", "O", false);
   }
-
+  
+  // globally accessible
   return {
     addPlayerOne,
     addPlayerTwo,
   };
 })();
 
+// temporary player creation
 players.addPlayerOne();
 players.addPlayerTwo();
-// --------------------GAME MODULE------------------------------- //
+// end temporary player creation
+
+// -------------------- GAME MODULE ------------------------------- //
 
 const game = (function () {
+  // variables 
   const gameArray = ["", "", "", "", "", "", "", "", ""];
-
   let playerSymbol = playerOne.symbol;
 
+  // player move and put mark on board
   function addSymbolToBoard() {
     const index = this.getAttribute("data-value");
     if (gameArray[index] !== "") {
       log("square is not empty");
     } else {
       gameArray[index] = playerSymbol;
-      gameBoard.showMoves();
+      gameBoard.displayArray();
       endMove();
     }
   }
@@ -47,20 +52,6 @@ const game = (function () {
   function endMove() {
     checkWinningCombo();
     switchPlayer();
-  }
-
-  // player Switch
-
-  function switchPlayer() {
-    if (playerOne.currentPlayer) {
-      playerOne.currentPlayer = false;
-      playerTwo.currentPlayer = true;
-      playerSymbol = playerTwo.symbol;
-    } else {
-      playerOne.currentPlayer = true;
-      playerTwo.currentPlayer = false;
-      playerSymbol = playerOne.symbol;
-    }
   }
 
   function checkWinningCombo() {
@@ -101,13 +92,30 @@ const game = (function () {
     }
   }
 
+  function switchPlayer() {
+    if (playerOne.currentPlayer) {
+      playerOne.currentPlayer = false;
+      playerTwo.currentPlayer = true;
+      playerSymbol = playerTwo.symbol;
+    } else {
+      playerOne.currentPlayer = true;
+      playerTwo.currentPlayer = false;
+      playerSymbol = playerOne.symbol;
+    }
+  }
+
+  // game finishing
   function endGame() {
+    // do stuff
+    // Temporary stuff
     log("END, restarting");
     setTimeout(() => {
       gameBoard.newGame();
-    }, 1200);
+    }, 1000);
+    // End Temporary stuff
   }
 
+  // globally accessible
   return {
     addSymbolToBoard,
     gameArray,
@@ -116,10 +124,11 @@ const game = (function () {
 
 // --------------------GAMEBOARD MODULE------------------------------- //
 const gameBoard = (function () {
-  // selectors and pointers
+  // selectors and variables
   const container = document.querySelector(".gameBoardContainer");
   const gameArray = game.gameArray;
-  // render
+  
+  // render functions
   function renderSquares(arrayItem) {
     const square = document.createElement("div");
     square.setAttribute("data-value", [arrayItem]);
@@ -134,13 +143,14 @@ const gameBoard = (function () {
     }
   }
 
-  function showMoves() {
+  function displayArray() {
     removeGrid()
     for (let i = 0; i < gameArray.length; i++) {
       renderSquares(i);
     }
   }
 
+  // resets array to empty values
   function resetArray() {
     for (let i = 0; i < gameArray.length; i++) {
       gameArray[i] = "";
@@ -148,12 +158,15 @@ const gameBoard = (function () {
   }
 
   function newGame() {
+    // do stuff
+    // Temporary stuff
     resetArray();
-    showMoves();
+    displayArray();
+    // End Temporary Stuff
   }
   // globally accessible
   return {
-    showMoves,
+    displayArray,
     newGame,
   };
 })();
