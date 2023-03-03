@@ -2,17 +2,12 @@
 function log(msg) {
   console.log(msg);
 }
+
+log("to start: gameBoard.showMoves()")
+
 // --------------------GAMEBOARD MODULE------------------------------- //
 const gameBoard = (function () {
   const gameBoardContents = ["", "", "", "", "", "", "", "", ""];
-
-  // selectors
-  // // start button remove this and listener if unneeded
-  // const startButton = document.querySelector(".start");
-
-  // listener
-  // // start button remove this and selector if unneeded
-  // startButton.addEventListener("click", showMoves);
 
   // gameboard creator
   const container = document.querySelector(".gameBoardContainer");
@@ -164,5 +159,3 @@ const game = (function () {
     addSymbolToBoard,
   };
 })();
-
-gameBoard.showMoves();
