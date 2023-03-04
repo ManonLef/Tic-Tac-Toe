@@ -55,3 +55,22 @@ I want to change the UI now:
     - when hitting start, submit names
     - create new player objects upon submit with name
   - start game
+
+## 20230304
+I have implemented the above. I just didn't start the game yet. Some notes:
+- I do sometimes run into issues with the order of the code. Some objects aren't accessible yet because of the IIFE's so I have to ake sure the objects are created before another module accesses them. 
+I feel like my code still needs some better structuring. Some things I'm currently doubting or thinking about:
+- are my modules clear enough?
+- are all methods in the right module?
+- should my factory function for creating the players be in a module?
+- should I keep my players private and only make their properties available that I need in other modules?
+
+## 202303041 
+- [ ] add a function to reset or stop the game (not being able to click anymore)
+- [x] confine the player objects to the module and export only the needed properties
+
+So I made the Player Object properties private and exported them with functions instead. I also managed to get some basic styling done
+Some things left to do:
+- [ ] Remove Game selection for now since we don't have PVC yet
+- [ ] Sketch out view/UI steps from name input > game > endgame
+
