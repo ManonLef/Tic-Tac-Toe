@@ -55,6 +55,9 @@ const players = (function () {
       playerOne.name = playerOneName.value;
       playerTwo.name = "Player 2";
     }
+    currentView.updateText(currentView.instruction, "Game in Progress");
+    currentView.updateText(currentView.announce, "Place your Mark");
+
     currentView.hideForm();
     gameBoard.newGame();
     // add view: update top text
@@ -85,11 +88,7 @@ const players = (function () {
   };
 })();
 
-// temporary player creation
-// end temporary player creation
-
 // -------------------- GAME MODULE ------------------------------- //
-
 const game = (function () {
   function checkWinningCombo() {
     const array = gameBoard.gameArray;
@@ -106,9 +105,11 @@ const game = (function () {
       (array[0] === array[4] && array[0] === array[8] && array[0] !== "") ||
       (array[2] === array[4] && array[2] === array[6] && array[2] !== "")
     ) {
-      log("we have a winner");
       if (players.getPlayerOneTurn()) {
-        log(`the winner is ${players.getPlayerOneName()}`);
+        currentView.updateText(
+          currentView.announce,
+          `the winner is ${players.getPlayerOneName()}`
+        );
       } else {
         log(`the winner is ${players.getPlayerTwoName()}`);
       }
@@ -214,7 +215,7 @@ const gameBoard = (function () {
   };
 })();
 
-// -------------------- GAME MODULE ------------------------------- //
+// -------------------- UI MODULE ------------------------------- //
 const currentView = (function () {
   // selectors and constants
   const playModeContainer = document.querySelector(".playSelect");
@@ -226,9 +227,11 @@ const currentView = (function () {
   function updateText(selector, message) {
     selector.textContent = message;
   }
+
   // create playMode buttons
   function playModeSelection() {
     updateText(instruction, "Pick a gamemode");
+    updateText(announce, "we don't even have a computer")
     // pvp button
     const pvp = document.createElement("button");
     pvp.textContent = "2 players";
@@ -248,13 +251,16 @@ const currentView = (function () {
   }
 
   function showPlayerForm() {
+    currentView.updateText(currentView.instruction, "Choose your names");
     // Temp
     while (playModeContainer.firstChild) {
       playModeContainer.removeChild(playModeContainer.firstChild);
     }
 
     if (this.className === "pvp") {
-      updateText(instruction, "Choose your names");
+      updateText(instruction, "PVP Gamemode");
+      updateText(announce, "Entering the World's greatest names");
+
       playerForm.removeAttribute("hidden");
     } else {
       updateText(instruction, "pvc selected");
@@ -271,5 +277,8 @@ const currentView = (function () {
   return {
     playModeSelection,
     hideForm,
+    updateText,
+    announce,
+    instruction,
   };
 })();
