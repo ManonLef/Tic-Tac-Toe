@@ -9,11 +9,11 @@ function log(msg) {
 const players = (function () {
   // selectors
   const submitNamesBtn = document.querySelector(".submit-names");
-  const playerOneName = document.querySelector("#playerOneName")
-  const playerTwoName = document.querySelector("#playerTwoName")
+  const playerOneName = document.querySelector("#playerOneName");
+  const playerTwoName = document.querySelector("#playerTwoName");
 
-  // listeners 
-  submitNamesBtn.addEventListener("click", setPlayerNames)
+  // listeners
+  submitNamesBtn.addEventListener("click", setPlayerNames);
 
   // player factory function
   const playerFactory = (name, symbol, currentPlayer) => ({
@@ -31,9 +31,10 @@ const players = (function () {
   }
 
   function setPlayerNames(event) {
-    event.preventDefault()
+    event.preventDefault();
     playerOne.name = playerOneName.value;
     playerTwo.name = playerTwoName.value;
+    currentView.hideForm();
   }
 
   // globally accessible
@@ -218,6 +219,10 @@ const currentView = (function () {
     playModeContainer.appendChild(pvc);
   }
 
+  function hideForm() {
+    playerForm.setAttribute("hidden", "");
+  }
+
   function showPlayerForm() {
     // Temp
     while (playModeContainer.firstChild) {
@@ -226,7 +231,7 @@ const currentView = (function () {
 
     if (this.className === "pvp") {
       updateText(instruction, "Choose your names");
-      playerForm.removeAttribute("hidden")
+      playerForm.removeAttribute("hidden");
     } else {
       updateText(instruction, "pvc selected");
     }
@@ -241,5 +246,6 @@ const currentView = (function () {
   // globally accessible
   return {
     playModeSelection,
+    hideForm,
   };
 })();
