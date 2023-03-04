@@ -23,40 +23,65 @@ const players = (function () {
   });
 
   // add players
-  function addPlayerOne(name) {
-    playerOne = playerFactory(name, "X", true);
-  }
-  function addPlayerTwo(name) {
-    playerTwo = playerFactory(name, "O", false);
+  const playerOne = playerFactory("Player 1", "X", true);
+  const playerTwo = playerFactory("Player 2", "0", false);
+
+  const getPlayerOneName = () => playerOne.name;
+  const getPlayerTwoName = () => playerTwo.name;
+
+  const getPlayerOneSymbol = () => playerOne.symbol;
+  const getPlayerTwoSymbol = () => playerTwo.symbol;
+
+  const getPlayerOneTurn = () => playerOne.currentPlayer;
+  const getPlayerTwoTurn = () => playerTwo.currentPlayer;
+
+  function getCurrentPlayerSymbol() {
+    if (getPlayerOneTurn()) {
+      return getPlayerOneSymbol();
+    }
+    return getPlayerTwoSymbol();
   }
 
+  // Set names set on form or revert to default player names
   function setPlayerNames(event) {
     event.preventDefault();
     if (playerOneName.value !== "" && playerTwoName.value !== "") {
       playerOne.name = playerOneName.value;
       playerTwo.name = playerTwoName.value;
     } else if (playerOneName.value === "" && playerTwoName.value !== "") {
-      playerOne.name = "Player 1"
+      playerOne.name = "Player 1";
       playerTwo.name = playerTwoName.value;
     } else if (playerOneName.value !== "" && playerTwoName.value === "") {
       playerOne.name = playerOneName.value;
-      playerTwo.name = "Player 2"
+      playerTwo.name = "Player 2";
     }
     currentView.hideForm();
     gameBoard.newGame();
     // add view: update top text
   }
 
-  function twoDefaultPlayers() {
-    addPlayerOne("Player 1");
-    addPlayerTwo("Player 2");
+  function switchPlayer() {
+    if (playerOne.currentPlayer) {
+      playerOne.currentPlayer = false;
+      playerTwo.currentPlayer = true;
+      playerSymbol = playerTwo.symbol;
+    } else {
+      playerOne.currentPlayer = true;
+      playerTwo.currentPlayer = false;
+      playerSymbol = playerOne.symbol;
+    }
   }
 
-  twoDefaultPlayers();
   // globally accessible
   return {
-    playerOne,
-    playerTwo,
+    getPlayerOneName,
+    getPlayerTwoName,
+    getPlayerOneSymbol,
+    getPlayerTwoSymbol,
+    getPlayerOneTurn,
+    getPlayerTwoTurn,
+    getCurrentPlayerSymbol,
+    switchPlayer,
   };
 })();
 
@@ -68,7 +93,6 @@ const players = (function () {
 const game = (function () {
   // variables
   const gameArray = ["", "", "", "", "", "", "", "", ""];
-  let playerSymbol = playerOne.symbol;
 
   // player move and put mark on board
   function addSymbolToBoard() {
@@ -76,7 +100,7 @@ const game = (function () {
     if (gameArray[index] !== "") {
       log("square is not empty");
     } else {
-      gameArray[index] = playerSymbol;
+      gameArray[index] = players.getCurrentPlayerSymbol();
       gameBoard.displayArray();
       endMove();
     }
@@ -84,7 +108,7 @@ const game = (function () {
 
   function endMove() {
     checkWinningCombo();
-    switchPlayer();
+    players.switchPlayer();
   }
 
   function checkWinningCombo() {
@@ -103,10 +127,10 @@ const game = (function () {
       (array[2] === array[4] && array[2] === array[6] && array[2] !== "")
     ) {
       log("we have a winner");
-      if (playerOne.currentPlayer) {
-        log(`the winner is ${playerOne.name}`);
+      if (players.getPlayerOneTurn()) {
+        log(`the winner is ${players.getPlayerOneName()}`);
       } else {
-        log(`the winner is ${playerTwo.name}`);
+        log(`the winner is ${players.getPlayerTwoName()}`);
       }
       endGame();
     } else if (
@@ -122,18 +146,6 @@ const game = (function () {
     ) {
       log("It's a TIE");
       endGame();
-    }
-  }
-
-  function switchPlayer() {
-    if (playerOne.currentPlayer) {
-      playerOne.currentPlayer = false;
-      playerTwo.currentPlayer = true;
-      playerSymbol = playerTwo.symbol;
-    } else {
-      playerOne.currentPlayer = true;
-      playerTwo.currentPlayer = false;
-      playerSymbol = playerOne.symbol;
     }
   }
 
