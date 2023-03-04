@@ -32,21 +32,35 @@ const players = (function () {
 
   function setPlayerNames(event) {
     event.preventDefault();
-    playerOne.name = playerOneName.value;
-    playerTwo.name = playerTwoName.value;
+    if (playerOneName.value !== "" && playerTwoName.value !== "") {
+      playerOne.name = playerOneName.value;
+      playerTwo.name = playerTwoName.value;
+    } else if (playerOneName.value === "" && playerTwoName.value !== "") {
+      playerOne.name = "Player 1"
+      playerTwo.name = playerTwoName.value;
+    } else if (playerOneName.value !== "" && playerTwoName.value === "") {
+      playerOne.name = playerOneName.value;
+      playerTwo.name = "Player 2"
+    }
     currentView.hideForm();
+    gameBoard.newGame();
+    // add view: update top text
   }
 
+  function twoDefaultPlayers() {
+    addPlayerOne("Player 1");
+    addPlayerTwo("Player 2");
+  }
+
+  twoDefaultPlayers();
   // globally accessible
   return {
-    addPlayerOne,
-    addPlayerTwo,
+    playerOne,
+    playerTwo,
   };
 })();
 
 // temporary player creation
-players.addPlayerOne();
-players.addPlayerTwo();
 // end temporary player creation
 
 // -------------------- GAME MODULE ------------------------------- //
