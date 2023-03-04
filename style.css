@@ -1,20 +1,77 @@
 * {
   padding: 0;
   margin: 0;
+
+  --color1: #383838;
+  --color2: #777777;
+  --color3: #949494;
+  --color4: #c6c6c6;
+  --color5: #f5f5f5;
+}
+body {
+  height: 100vh;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 1fr;
+}
+
+header,
+footer {
+  padding: 20px;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--color1);
+  color: aliceblue;
+}
+
+.main {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color3);
+  height: 100%;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 1fr auto 1fr;
+}
+
+.board-or-form {
+  grid-area: 2/2/3/3;
+  align-items: center;
+  justify-content: center;
+}
+
+.top,
+.announce {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+  background-color: var(--color2);
+  color: white;
+  grid-column: 1/-1;
 }
 
 .gameBoardContainer {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  width: 300px;
-  height: 300px;
+  grid-template-columns: repeat(3, minmax(50px, 100px));
+  grid-template-rows: repeat(3, minmax(50px, 100px));
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
 }
 
 .gameBoardContainer > div {
-  border: 2px solid purple;
-  width: 100px;
-  height: 100px;
-  display: flex;
+  height: 100%;
+  width: 100%;
+  background-color: var(--color4);
+  border-radius: 5px;
+
+  display: grid;
   justify-content: center;
   align-items: center;
 }

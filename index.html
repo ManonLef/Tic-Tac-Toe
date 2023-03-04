@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
-  <title>Document</title>
-</head>
-<body>
-  <div class="instruction"></div>
-
-  <div class="playSelect"></div>
-
-  <form hidden action="" class="playerForm">
-    <label for="name-player-one">Player One Name</label>
-    <input type="text" name="name-player-one" id="playerOneName">
-    <label for="name-player-two">Player Two Name</label>
-    <input type="text" name="name-player-two" id="playerTwoName">
-    <button type="submit" class="submit-names">Go</button>
-  </form>
-
-  <div class="gameBoardContainer">
-  </div>
-
-  <div class="announce"></div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <title>Manon's Tic Tac Toe</title>
+  </head>
+  <body>
+    <header>TIC TAC TOE</header>
+    <div class="main">
+      <div class="top">
+        <div class="instruction"></div>
+        <div class="playSelect"></div>
+      </div>
+      <div class="board-or-form">
+        <form hidden action="" class="playerForm">
+          <label for="name-player-one">Player One Name</label>
+          <input type="text" name="name-player-one" id="playerOneName" />
+          <label for="name-player-two">Player Two Name</label>
+          <input type="text" name="name-player-two" id="playerTwoName" />
+          <button type="submit" class="submit-names">Go</button>
+        </form>
+        <div class="gameBoardContainer"></div>
+      </div>
+      <div class="announce"></div>
+    </div>
+    <footer>Made By Manon Lef 2023</footer>
+  </body>
 </html>
