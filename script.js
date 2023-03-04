@@ -91,28 +91,8 @@ const players = (function () {
 // -------------------- GAME MODULE ------------------------------- //
 
 const game = (function () {
-  // variables
-  const gameArray = ["", "", "", "", "", "", "", "", ""];
-
-  // player move and put mark on board
-  function addSymbolToBoard() {
-    const index = this.getAttribute("data-value");
-    if (gameArray[index] !== "") {
-      log("square is not empty");
-    } else {
-      gameArray[index] = players.getCurrentPlayerSymbol();
-      gameBoard.displayArray();
-      endMove();
-    }
-  }
-
-  function endMove() {
-    checkWinningCombo();
-    players.switchPlayer();
-  }
-
   function checkWinningCombo() {
-    const array = gameArray;
+    const array = gameBoard.gameArray;
     if (
       // horizontal win conditions
       (array[0] === array[1] && array[0] === array[2] && array[0] !== "") ||
@@ -149,9 +129,13 @@ const game = (function () {
     }
   }
 
+  function endMove() {
+    checkWinningCombo();
+    players.switchPlayer();
+  }
+
   // game finishing
   function endGame() {
-    // do stuff
     // Temporary stuff
     log("END, restarting");
     setTimeout(() => {
@@ -162,8 +146,7 @@ const game = (function () {
 
   // globally accessible
   return {
-    addSymbolToBoard,
-    gameArray,
+    endMove,
   };
 })();
 
@@ -171,14 +154,27 @@ const game = (function () {
 const gameBoard = (function () {
   // selectors and variables
   const container = document.querySelector(".gameBoardContainer");
-  const gameArray = game.gameArray;
+  // variables
+  const gameArray = ["", "", "", "", "", "", "", "", ""];
+
+  // player move and put mark on board
+  function addSymbolToBoard() {
+    const index = this.getAttribute("data-value");
+    if (gameArray[index] !== "") {
+      log("square is not empty");
+    } else {
+      gameArray[index] = players.getCurrentPlayerSymbol();
+      displayArray();
+      game.endMove();
+    }
+  }
 
   // render functions
   function renderSquares(arrayItem) {
     const square = document.createElement("div");
     square.setAttribute("data-value", [arrayItem]);
     square.textContent = gameArray[arrayItem];
-    square.addEventListener("click", game.addSymbolToBoard);
+    square.addEventListener("click", gameBoard.addSymbolToBoard);
     container.appendChild(square);
   }
 
@@ -213,6 +209,8 @@ const gameBoard = (function () {
   return {
     displayArray,
     newGame,
+    gameArray,
+    addSymbolToBoard,
   };
 })();
 
