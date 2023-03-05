@@ -46,7 +46,7 @@ const players = (function () {
     if (getPlayerOneTurn()) {
       return getPlayerOneName();
     }
-    return getPlayerTwoName;
+    return getPlayerTwoName();
   }
 
   // Set names set on form or revert to default player names
@@ -62,7 +62,6 @@ const players = (function () {
       playerOne.name = playerOneName.value;
       playerTwo.name = "Player 2";
     }
-    currentView.updateText(currentView.instruction, "Game in Progress");
     currentView.hideForm();
     gameBoard.newGame();
     // add view: update top text
@@ -130,7 +129,8 @@ const game = (function () {
           `the winner is ${players.getPlayerTwoName()}`
         );
       }
-      endGame();
+      gameBoard.removeSquareListeners();
+      endGame("win");
     } else if (
       (array[0] &&
         array[1] &&
@@ -143,7 +143,7 @@ const game = (function () {
         array[8]) !== ""
     ) {
       log("It's a TIE");
-      endGame();
+      endGame("tie");
     } else {
       players.switchPlayer();
     }
@@ -154,8 +154,8 @@ const game = (function () {
   }
 
   // game finishing
-  function endGame() {
-    currentView.showPlayAgain();
+  function endGame(winOrTie) {
+    currentView.showPlayAgain(winOrTie);
   }
 
   // globally accessible
@@ -206,6 +206,13 @@ const gameBoard = (function () {
     }
   }
 
+  function removeSquareListeners() {
+    const squares = container.children;
+    for (square of squares) {
+      square.removeEventListener("click", gameBoard.addSymbolToBoard);
+    }
+  }
+
   function displayArray() {
     removeGrid();
     for (let i = 0; i < gameArray.length; i++) {
@@ -240,6 +247,7 @@ const gameBoard = (function () {
     newGame,
     gameArray,
     addSymbolToBoard,
+    removeSquareListeners,
   };
 })();
 
@@ -288,7 +296,7 @@ const currentView = (function () {
     playerForm.removeAttribute("hidden");
   }
 
-  function showPlayAgain() {
+  function showPlayAgain(winOrTie) {
     // container
     const againContainer = document.createElement("div");
     againContainer.className = "again-container";
@@ -296,7 +304,6 @@ const currentView = (function () {
 
     const playAgain = document.createElement("div");
     playAgain.className = "play-again";
-    playAgain.textContent = `${players.getCurrentPlayer()} WON! Play again?`;
     againContainer.appendChild(playAgain);
 
     const yes = document.createElement("button");
@@ -311,6 +318,12 @@ const currentView = (function () {
     againContainer.appendChild(no);
     no.addEventListener("click", showPlayerForm);
     yes.addEventListener("click", gameBoard.newGame);
+
+    if (winOrTie === "tie") {
+      playAgain.textContent = "Tic Tac TIE! Want to play another game?";
+    } else {
+      playAgain.textContent = `Tic Tac WIN for ${players.getCurrentPlayer()}. Want to play another game?`;
+    }
   }
 
   // start screen:
