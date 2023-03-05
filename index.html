@@ -5,6 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
     <script src="script.js" defer></script>
     <title>Manon's Tic Tac Toe</title>
   </head>
@@ -15,18 +21,37 @@
         <div class="instruction"></div>
         <div class="playSelect"></div>
       </div>
-      <div class="board-or-form">
+      <div class="form-container">
         <form hidden action="" class="playerForm">
-          <label for="name-player-one">Player One Name</label>
-          <input type="text" name="name-player-one" id="playerOneName" />
-          <label for="name-player-two">Player Two Name</label>
-          <input type="text" name="name-player-two" id="playerTwoName" />
-          <button type="submit" class="submit-names">Go</button>
+          <div class="form-grid">
+            <div class="label-input">
+              <label for="name-player-one"
+                >Player One<span
+                  ><img src="./notes and resources/cross.svg" alt=""
+                /></span>
+              </label>
+              <input type="text" name="name-player-one" id="playerOneName" />
+            </div>
+            <div class="label-input">
+              <label for="name-player-two"
+                >Player Two<span
+                  ><img
+                    class="circle"
+                    src="./notes and resources/circle.svg"
+                    alt=""
+                /></span>
+              </label>
+              <input type="text" name="name-player-two" id="playerTwoName" />
+            </div>
+            <button type="submit" class="submit-names">PLAY</button>
+          </div>
         </form>
+      </div>
+      <div class="board-or-form">
         <div class="gameBoardContainer"></div>
       </div>
       <div class="announce"></div>
     </div>
-    <footer>Made By Manon Lef 2023</footer>
+    <footer>© Manon Lef 2023</footer>
   </body>
 </html>
