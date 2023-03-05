@@ -56,7 +56,6 @@ const players = (function () {
       playerTwo.name = "Player 2";
     }
     currentView.updateText(currentView.instruction, "Game in Progress");
-    currentView.updateText(currentView.announce, "Place your Mark");
 
     currentView.hideForm();
     gameBoard.newGame();
@@ -226,7 +225,6 @@ const gameBoard = (function () {
 const currentView = (function () {
   // selectors and constants
   const instruction = document.querySelector(".instruction");
-  const announce = document.querySelector(".announce");
   const playerForm = document.querySelector(".playerForm");
   const center = document.querySelector(".overlays")
   // helper functions
@@ -237,7 +235,6 @@ const currentView = (function () {
   // create playMode buttons
   function playModeSelection() {
     updateText(instruction, "Pick a gamemode");
-    updateText(announce, "we don't even have a computer")
     // pvp button
     const pvp = document.createElement("button");
     pvp.textContent = "START GAME";
@@ -259,7 +256,6 @@ const currentView = (function () {
 
     if (this.className === "pvp") {
       updateText(instruction, "PVP Gamemode");
-      updateText(announce, "Entering the World's greatest names");
 
       playerForm.removeAttribute("hidden");
     } else {
@@ -278,7 +274,6 @@ const currentView = (function () {
     playModeSelection,
     hideForm,
     updateText,
-    announce,
     instruction,
   };
 })();
