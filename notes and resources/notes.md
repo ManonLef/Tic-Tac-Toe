@@ -71,6 +71,13 @@ I feel like my code still needs some better structuring. Some things I'm current
 
 So I made the Player Object properties private and exported them with functions instead. I also managed to get some basic styling done
 Some things left to do:
-- [ ] Remove Game selection for now since we don't have PVC yet
+- [x] Remove Game selection for now since we don't have PVC yet
 - [ ] Sketch out view/UI steps from name input > game > endgame
 
+## 20230305
+- Some things to do today:
+  - [x] remove gamemode selection and just start game with playerform for now
+  - [x] add an overlay if there's a winner to ask for a new game
+- [x] add overlay message when there's a tie
+- [ ] clear form after modal for new game
+- [ ] refactor
