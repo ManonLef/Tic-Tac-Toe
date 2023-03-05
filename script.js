@@ -1,6 +1,5 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable no-use-before-define */
 const players = (function () {
+
   const submitNamesBtn = document.querySelector(".submit-names");
   const playerOneName = document.querySelector(".player-one-name");
   const playerTwoName = document.querySelector(".player-two-name");
@@ -13,7 +12,6 @@ const players = (function () {
     currentPlayer,
   });
 
-  // default players
   const playerOne = playerFactory("Player 1", "X", true);
   const playerTwo = playerFactory("Player 2", "O", false);
 
@@ -63,12 +61,9 @@ const players = (function () {
       playerOne.currentPlayer = true;
       playerTwo.currentPlayer = false;
     }
-    view.updateText(
-      `it's ${getCurrentPlayer()}'s turn`
-    );
+    view.updateText(`it's ${getCurrentPlayer()}'s turn`);
   }
 
-  // globally accessible
   return {
     getCurrentPlayerSymbol,
     getCurrentPlayer,
@@ -77,6 +72,7 @@ const players = (function () {
 })();
 
 const game = (function () {
+
   function newGame() {
     if (document.querySelector(".overlays").firstChild) {
       document
@@ -85,16 +81,13 @@ const game = (function () {
     }
     gameBoard.resetArray();
     gameBoard.displayArray();
-    view.updateText(
-      `it's ${players.getCurrentPlayer()}'s turn`
-    );
+    view.updateText(`it's ${players.getCurrentPlayer()}'s turn`);
   }
 
   function endGame(winOrTie) {
     view.showPlayAgain(winOrTie);
   }
 
-  // globally accessible
   return {
     newGame,
     endGame,
@@ -102,6 +95,7 @@ const game = (function () {
 })();
 
 const gameBoard = (function () {
+
   const container = document.querySelector(".gameboard-container");
   const gameArray = ["", "", "", "", "", "", "", "", ""];
 
@@ -169,9 +163,7 @@ const gameBoard = (function () {
       (array[0] === array[4] && array[0] === array[8] && array[0] !== "") ||
       (array[2] === array[4] && array[2] === array[6] && array[2] !== "")
     ) {
-      view.updateText(
-        `the winner is ${players.getCurrentPlayer()}`
-      );
+      view.updateText(`the winner is ${players.getCurrentPlayer()}`);
       gameBoard.removeSquareListeners();
       game.endGame("win");
     } else if (
@@ -201,6 +193,7 @@ const gameBoard = (function () {
 })();
 
 const view = (function () {
+
   const topMessage = document.querySelector(".top-message");
   const playerForm = document.querySelector(".player-form");
   const center = document.querySelector(".overlays");
@@ -264,13 +257,13 @@ const view = (function () {
   };
 })();
 
-  // WROTE THIS INCLUDING PVC MODE FOR A LATER FEATURE.
-  // Location: view
-  // function playModeSelection() {
-  //   updateText(topMessage, "Pick a gamemode");
-  //   const pvp = document.createElement("button");
-  //   pvp.textContent = "START GAME";
-  //   pvp.className = "pvp";
-  //   pvp.addEventListener("click", showPlayerForm);
-  //   center.appendChild(pvp);
-  // }
+// WROTE THIS INCLUDING PVC MODE FOR A LATER FEATURE.
+// Location: view
+// function playModeSelection() {
+//   updateText(topMessage, "Pick a gamemode");
+//   const pvp = document.createElement("button");
+//   pvp.textContent = "START GAME";
+//   pvp.className = "pvp";
+//   pvp.addEventListener("click", showPlayerForm);
+//   center.appendChild(pvp);
+// }

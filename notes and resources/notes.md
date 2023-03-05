@@ -66,13 +66,13 @@ I feel like my code still needs some better structuring. Some things I'm current
 - should I keep my players private and only make their properties available that I need in other modules?
 
 ## 202303041 
-- [ ] add a function to reset or stop the game (not being able to click anymore)
+- [x] add a function to reset or stop the game (not being able to click anymore)
 - [x] confine the player objects to the module and export only the needed properties
 
 So I made the Player Object properties private and exported them with functions instead. I also managed to get some basic styling done
 Some things left to do:
 - [x] Remove Game selection for now since we don't have PVC yet
-- [ ] Sketch out view/UI steps from name input > game > endgame
+- [x] Sketch out view/UI steps from name input > game > endgame
 
 ## 20230305
 - Some things to do today:
@@ -80,4 +80,5 @@ Some things left to do:
   - [x] add an overlay if there's a winner to ask for a new game
 - [x] add overlay message when there's a tie
 - [ ] clear form after modal for new game
-- [ ] refactor
+- [x] refactor
+- NOTE: I could probably move everything from the game module to the gameBoard seeing as there are merely two items left... Another option would be to export the gameArray through a function and put some gameBoard functions back in the game module
