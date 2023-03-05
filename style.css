@@ -2,13 +2,11 @@
   padding: 0;
   margin: 0;
 
-  --color1: #383838;
-  --color2: #777777;
-  --color3: #949494;
-  --color4: #99b4b4;
-  --color5: #f5f5f5;
-  --color6: white;
+  --color1: #ff6cab;
+  --color2: #7366ff;
+  --color3: white;
 }
+
 body {
   height: 100vh;
   display: grid;
@@ -16,6 +14,9 @@ body {
   justify-content: center;
   grid-template-rows: auto 1fr auto;
   grid-template-columns: 1fr;
+  background: #ff6cab;
+  background: linear-gradient(311deg, #ff6cab 30%, #7366ff 100%);
+  font-family: "Roboto", sans-serif;
 }
 
 header,
@@ -24,25 +25,43 @@ footer {
   display: grid;
   align-items: center;
   justify-content: center;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.3);
+}
 
-  background-color: var(--color1);
-  color: aliceblue;
+header {
+  font-size: 50px;
+  font-weight: 900;
+  letter-spacing: 4px;
 }
 
 .main {
   display: grid;
   justify-content: center;
   align-items: center;
-  background-color: var(--color6);
   height: 100%;
-  grid-template-rows: auto 1fr auto;
+  padding-left: 30px;
+  padding-right: 30px;
+  grid-template-rows: auto auto auto;
   grid-template-columns: 1fr auto 1fr;
-  background: rgb(188, 131, 191);
-  background: linear-gradient(
-    311deg,
-    rgba(188, 131, 191, 1) 30%,
-    rgba(0, 165, 255, 1) 100%
-  );
+  position: relative;
+}
+
+.top,
+.announce {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem;
+  color: white;
+  grid-column: 1/-1;
+  font-size: 18px;
+  font-weight: 300;
+  text-transform: uppercase;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .board-or-form {
@@ -51,15 +70,60 @@ footer {
   justify-content: center;
 }
 
-.top,
-.announce {
+.form-container {
+  position: absolute;
+  justify-self: center;
+  align-self: center;
+}
+
+.form-grid {
   display: grid;
-  align-items: center;
-  justify-content: center;
-  padding: 1em;
-  background-color: var(--color2);
   color: white;
-  grid-column: 1/-1;
+  gap: 25px;
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.label-input {
+  display: grid;
+  gap: 3px;
+}
+
+label {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+img.circle {
+  font-size: 50px;
+}
+
+input {
+  height: 2rem;
+  border: none;
+  outline: none;
+  border: 2px solid rgba(115, 102, 255, 0.5);
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 0 1rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  color: #5b51ca;
+}
+input:focus {
+  border: 2px solid var(--color2);
+}
+
+button {
+  appearance: none;
+  padding: 0 1rem;
+  height: 2rem;
+  border-radius: 5px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  color: white;
+  background-color: rgba(255, 255, 255, 0.4);
+  font-weight: 600;
 }
 
 .gameBoardContainer {
