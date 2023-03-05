@@ -89,10 +89,6 @@ const players = (function () {
 
   // globally accessible
   return {
-    getPlayerOneSymbol,
-    getPlayerTwoSymbol,
-    getPlayerOneTurn,
-    getPlayerTwoTurn,
     getCurrentPlayerSymbol,
     getCurrentPlayer,
     switchPlayer,
