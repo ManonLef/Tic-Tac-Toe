@@ -66,12 +66,18 @@ const players = (function () {
       playerOne.currentPlayer = false;
       playerTwo.currentPlayer = true;
       playerSymbol = playerTwo.symbol;
-      currentView.updateText(currentView.instruction, `it's ${getPlayerTwoName()}'s turn`);
+      currentView.updateText(
+        currentView.instruction,
+        `it's ${getPlayerTwoName()}'s turn`
+      );
     } else {
       playerOne.currentPlayer = true;
       playerTwo.currentPlayer = false;
       playerSymbol = playerOne.symbol;
-      currentView.updateText(currentView.instruction, `it's ${getPlayerOneName()}'s turn`);
+      currentView.updateText(
+        currentView.instruction,
+        `it's ${getPlayerOneName()}'s turn`
+      );
     }
   }
 
@@ -108,10 +114,14 @@ const game = (function () {
       if (players.getPlayerOneTurn()) {
         currentView.updateText(
           currentView.instruction,
-          `${players.getPlayerOneName()} won this game`
+          `the winner is ${players.getPlayerOneName()}`
         );
+
       } else {
-        log(`the winner is ${players.getPlayerTwoName()}`);
+        currentView.updateText(
+          currentView.instruction,
+          `the winner is ${players.getPlayerTwoName()}`
+        );
       }
       endGame();
     } else if (
@@ -127,24 +137,22 @@ const game = (function () {
     ) {
       log("It's a TIE");
       endGame();
+    } else {
+      players.switchPlayer();
     }
   }
 
   function endMove() {
     checkWinningCombo();
-    players.switchPlayer();
   }
 
   // game finishing
-  function endGame() {
-    setTimeout(() => {
-      gameBoard.newGame();
-    }, 1000);
-  }
+  function endGame() {}
 
   // globally accessible
   return {
     endMove,
+    endGame,
   };
 })();
 
@@ -171,16 +179,16 @@ const gameBoard = (function () {
   function renderSquares(arrayItem) {
     const square = document.createElement("div");
     square.setAttribute("data-value", [arrayItem]);
-    const img = document.createElement("img")
+    const img = document.createElement("img");
     if (gameArray[arrayItem] === "X") {
-      img.src = "./notes and resources/cross.svg"
+      img.src = "./notes and resources/cross.svg";
     } else if (gameArray[arrayItem] === "O") {
-      img.src = "./notes and resources/circle.svg"
+      img.src = "./notes and resources/circle.svg";
       img.className = "circle";
     }
     square.addEventListener("click", gameBoard.addSymbolToBoard);
     container.appendChild(square);
-    square.appendChild(img)
+    square.appendChild(img);
   }
 
   function removeGrid() {
@@ -206,7 +214,10 @@ const gameBoard = (function () {
   function newGame() {
     resetArray();
     displayArray();
-    currentView.updateText(currentView.instruction, `it's ${players.getPlayerOneName()}'s turn`);
+    currentView.updateText(
+      currentView.instruction,
+      `it's ${players.getPlayerOneName()}'s turn`
+    );
   }
   // globally accessible
   return {
@@ -222,7 +233,7 @@ const currentView = (function () {
   // selectors and constants
   const instruction = document.querySelector(".instruction");
   const playerForm = document.querySelector(".playerForm");
-  const center = document.querySelector(".overlays")
+  const center = document.querySelector(".overlays");
   // helper functions
   function updateText(selector, message) {
     selector.textContent = message;
@@ -248,7 +259,7 @@ const currentView = (function () {
     playerForm.removeAttribute("hidden");
   }
 
-showPlayerForm()
+  showPlayerForm();
   return {
     hideForm,
     updateText,
