@@ -14,7 +14,6 @@ body {
   justify-content: center;
   grid-template-rows: auto 1fr auto;
   grid-template-columns: 1fr;
-  background: #ff6cab;
   background: linear-gradient(311deg, #ff6cab 30%, #7366ff 100%);
   font-family: "Roboto", sans-serif;
 }
@@ -177,3 +176,26 @@ img {
 .circle {
   height: 75%;
 }
+.overlays {
+  padding: 40px;
+  pointer-events: none;
+}
+
+.again-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  background-color: #7d67f9e2;
+  padding: 2em 30px;
+  font-size: 25px;
+  border-radius: 5px;
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 1);
+  text-align: center;
+  pointer-events: all;
+}
+
+.play-again {
+  grid-column: 1/-1;
+}
+
