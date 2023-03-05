@@ -106,8 +106,8 @@ const game = (function () {
     ) {
       if (players.getPlayerOneTurn()) {
         currentView.updateText(
-          currentView.announce,
-          `the winner is ${players.getPlayerOneName()}`
+          currentView.instruction,
+          `${players.getPlayerOneName()} won this game`
         );
       } else {
         log(`the winner is ${players.getPlayerTwoName()}`);
@@ -136,12 +136,9 @@ const game = (function () {
 
   // game finishing
   function endGame() {
-    // Temporary stuff
-    log("END, restarting");
     setTimeout(() => {
       gameBoard.newGame();
     }, 1000);
-    // End Temporary stuff
   }
 
   // globally accessible
