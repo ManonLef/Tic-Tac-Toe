@@ -221,6 +221,11 @@ const gameBoard = (function () {
   }
 
   function newGame() {
+    if (document.querySelector(".overlays").firstChild) {
+      document
+        .querySelector(".overlays")
+        .removeChild(document.querySelector(".overlays").firstChild);
+    }
     resetArray();
     displayArray();
     currentView.updateText(
@@ -230,6 +235,7 @@ const gameBoard = (function () {
   }
   // globally accessible
   return {
+    removeGrid,
     displayArray,
     newGame,
     gameArray,
@@ -265,7 +271,20 @@ const currentView = (function () {
   }
 
   function showPlayerForm() {
-    updateText(instruction, "Enter PLayer Names");
+    // check for modal
+    if (document.querySelector(".overlays").firstChild) {
+      document
+        .querySelector(".overlays")
+        .removeChild(document.querySelector(".overlays").firstChild);
+    }
+
+    const modal = document.querySelector(".again-container");
+    if (modal) {
+      center.remove(modal);
+    }
+
+    gameBoard.removeGrid();
+    updateText(instruction, "Enter Player Names");
     playerForm.removeAttribute("hidden");
   }
 
@@ -290,9 +309,13 @@ const currentView = (function () {
 
     againContainer.appendChild(yes);
     againContainer.appendChild(no);
+    no.addEventListener("click", showPlayerForm);
+    yes.addEventListener("click", gameBoard.newGame);
   }
 
+  // start screen:
   showPlayerForm();
+
   return {
     hideForm,
     updateText,
