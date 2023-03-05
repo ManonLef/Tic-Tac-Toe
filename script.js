@@ -26,6 +26,7 @@ const players = (function () {
   const playerOne = playerFactory("Player 1", "X", true);
   const playerTwo = playerFactory("Player 2", "O", false);
 
+  // object property functions
   const getPlayerOneName = () => playerOne.name;
   const getPlayerTwoName = () => playerTwo.name;
 
@@ -63,8 +64,7 @@ const players = (function () {
       playerTwo.name = "Player 2";
     }
     currentView.hideForm();
-    gameBoard.newGame();
-    // add view: update top text
+    game.newGame();
   }
 
   function switchPlayer() {
@@ -97,6 +97,21 @@ const players = (function () {
 
 // -------------------- GAME MODULE ------------------------------- //
 const game = (function () {
+  // when player names are submitted or play again is confirmed after a round, a new game will start
+  function newGame() {
+    if (document.querySelector(".overlays").firstChild) {
+      document
+        .querySelector(".overlays")
+        .removeChild(document.querySelector(".overlays").firstChild);
+    }
+    gameBoard.resetArray();
+    gameBoard.displayArray();
+    currentView.updateText(
+      currentView.instruction,
+      `it's ${players.getCurrentPlayer()}'s turn`
+    );
+  }
+
   function checkWinningCombo() {
     const array = gameBoard.gameArray;
     if (
@@ -147,6 +162,7 @@ const game = (function () {
 
   // globally accessible
   return {
+    newGame,
     endMove,
     endGame,
   };
@@ -214,24 +230,12 @@ const gameBoard = (function () {
     }
   }
 
-  function newGame() {
-    if (document.querySelector(".overlays").firstChild) {
-      document
-        .querySelector(".overlays")
-        .removeChild(document.querySelector(".overlays").firstChild);
-    }
-    resetArray();
-    displayArray();
-    currentView.updateText(
-      currentView.instruction,
-      `it's ${players.getCurrentPlayer()}'s turn`
-    );
-  }
+  
   // globally accessible
   return {
+    resetArray,
     removeGrid,
     displayArray,
-    newGame,
     gameArray,
     addSymbolToBoard,
     removeSquareListeners,
@@ -304,7 +308,7 @@ const currentView = (function () {
     againContainer.appendChild(yes);
     againContainer.appendChild(no);
     no.addEventListener("click", showPlayerForm);
-    yes.addEventListener("click", gameBoard.newGame);
+    yes.addEventListener("click", game.newGame);
 
     if (winOrTie === "tie") {
       playAgain.textContent = "Tic Tac TIE! Want to play another game?";
