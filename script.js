@@ -1,24 +1,20 @@
 const players = (function () {
-  // selectors
   const submitNamesBtn = document.querySelector(".submit-names");
   const playerOneName = document.querySelector(".player-one-name");
   const playerTwoName = document.querySelector(".player-two-name");
 
-  // listeners
   submitNamesBtn.addEventListener("click", setPlayerNames);
 
-  // player factory function
   const playerFactory = (name, symbol, currentPlayer) => ({
     name,
     symbol,
     currentPlayer,
   });
 
-  // add players
+  // default players
   const playerOne = playerFactory("Player 1", "X", true);
   const playerTwo = playerFactory("Player 2", "O", false);
 
-  // object property functions
   const getPlayerOneName = () => playerOne.name;
   const getPlayerTwoName = () => playerTwo.name;
 
@@ -26,7 +22,6 @@ const players = (function () {
   const getPlayerTwoSymbol = () => playerTwo.symbol;
 
   const getPlayerOneTurn = () => playerOne.currentPlayer;
-  const getPlayerTwoTurn = () => playerTwo.currentPlayer;
 
   function getCurrentPlayerSymbol() {
     if (getPlayerOneTurn()) {
@@ -42,7 +37,6 @@ const players = (function () {
     return getPlayerTwoName();
   }
 
-  // Set names set on form or revert to default player names
   function setPlayerNames(event) {
     event.preventDefault();
     if (playerOneName.value !== "" && playerTwoName.value !== "") {
@@ -60,7 +54,7 @@ const players = (function () {
   }
 
   function switchPlayer() {
-    if (playerOne.currentPlayer) {
+    if (getPlayerOneTurn()) {
       playerOne.currentPlayer = false;
       playerTwo.currentPlayer = true;
     } else {
@@ -81,9 +75,7 @@ const players = (function () {
   };
 })();
 
-// -------------------- GAME MODULE ------------------------------- //
 const game = (function () {
-  // when player names are submitted or play again is confirmed after a round, a new game will start
   function newGame() {
     if (document.querySelector(".overlays").firstChild) {
       document
@@ -101,15 +93,12 @@ const game = (function () {
   function checkWinningCombo() {
     const array = gameBoard.gameArray;
     if (
-      // horizontal win conditions
       (array[0] === array[1] && array[0] === array[2] && array[0] !== "") ||
       (array[3] === array[4] && array[3] === array[5] && array[3] !== "") ||
       (array[6] === array[7] && array[6] === array[8] && array[6] !== "") ||
-      // vertical win conditions
       (array[0] === array[3] && array[0] === array[6] && array[0] !== "") ||
       (array[1] === array[4] && array[1] === array[7] && array[1] !== "") ||
       (array[2] === array[5] && array[2] === array[8] && array[2] !== "") ||
-      // diagonal win conditions
       (array[0] === array[4] && array[0] === array[8] && array[0] !== "") ||
       (array[2] === array[4] && array[2] === array[6] && array[2] !== "")
     ) {
@@ -136,19 +125,15 @@ const game = (function () {
     }
   }
 
-  function endMove() {
-    checkWinningCombo();
-  }
 
-  // game finishing
   function endGame(winOrTie) {
     currentView.showPlayAgain(winOrTie);
   }
 
   // globally accessible
   return {
+    checkWinningCombo,
     newGame,
-    endMove,
     endGame,
   };
 })();
@@ -167,7 +152,7 @@ const gameBoard = (function () {
     } else {
       gameArray[index] = players.getCurrentPlayerSymbol();
       displayArray();
-      game.endMove();
+      game.checkWinningCombo();
     }
   }
 
@@ -207,14 +192,12 @@ const gameBoard = (function () {
     }
   }
 
-  // resets array to empty values
   function resetArray() {
     for (let i = 0; i < gameArray.length; i++) {
       gameArray[i] = "";
     }
   }
 
-  
   // globally accessible
   return {
     resetArray,
