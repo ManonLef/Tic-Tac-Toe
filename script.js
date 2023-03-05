@@ -63,20 +63,14 @@ const players = (function () {
     if (playerOne.currentPlayer) {
       playerOne.currentPlayer = false;
       playerTwo.currentPlayer = true;
-      playerSymbol = playerTwo.symbol;
-      currentView.updateText(
-        currentView.instruction,
-        `it's ${getPlayerTwoName()}'s turn`
-      );
     } else {
       playerOne.currentPlayer = true;
       playerTwo.currentPlayer = false;
-      playerSymbol = playerOne.symbol;
-      currentView.updateText(
-        currentView.instruction,
-        `it's ${getPlayerOneName()}'s turn`
-      );
     }
+    currentView.updateText(
+      currentView.instruction,
+      `it's ${getCurrentPlayer()}'s turn`
+    );
   }
 
   // globally accessible
@@ -136,7 +130,6 @@ const game = (function () {
         array[7] &&
         array[8]) !== ""
     ) {
-      log("It's a TIE");
       endGame("tie");
     } else {
       players.switchPlayer();
@@ -171,7 +164,6 @@ const gameBoard = (function () {
   function addSymbolToBoard() {
     const index = this.getAttribute("data-value");
     if (gameArray[index] !== "") {
-      log("square is not empty");
     } else {
       gameArray[index] = players.getCurrentPlayerSymbol();
       displayArray();
