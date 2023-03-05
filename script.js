@@ -90,48 +90,12 @@ const game = (function () {
     );
   }
 
-  function checkWinningCombo() {
-    const array = gameBoard.gameArray;
-    if (
-      (array[0] === array[1] && array[0] === array[2] && array[0] !== "") ||
-      (array[3] === array[4] && array[3] === array[5] && array[3] !== "") ||
-      (array[6] === array[7] && array[6] === array[8] && array[6] !== "") ||
-      (array[0] === array[3] && array[0] === array[6] && array[0] !== "") ||
-      (array[1] === array[4] && array[1] === array[7] && array[1] !== "") ||
-      (array[2] === array[5] && array[2] === array[8] && array[2] !== "") ||
-      (array[0] === array[4] && array[0] === array[8] && array[0] !== "") ||
-      (array[2] === array[4] && array[2] === array[6] && array[2] !== "")
-    ) {
-      view.updateText(
-        `the winner is ${players.getCurrentPlayer()}`
-      );
-      gameBoard.removeSquareListeners();
-      endGame("win");
-    } else if (
-      (array[0] &&
-        array[1] &&
-        array[2] &&
-        array[3] &&
-        array[4] &&
-        array[5] &&
-        array[6] &&
-        array[7] &&
-        array[8]) !== ""
-    ) {
-      endGame("tie");
-    } else {
-      players.switchPlayer();
-    }
-  }
-
-
   function endGame(winOrTie) {
     view.showPlayAgain(winOrTie);
   }
 
   // globally accessible
   return {
-    checkWinningCombo,
     newGame,
     endGame,
   };
@@ -148,7 +112,7 @@ const gameBoard = (function () {
     } else {
       gameArray[index] = players.getCurrentPlayerSymbol();
       displayArray();
-      game.checkWinningCombo();
+      checkWinningCombo();
     }
   }
 
@@ -193,12 +157,46 @@ const gameBoard = (function () {
     }
   }
 
+  function checkWinningCombo() {
+    const array = gameArray;
+    if (
+      (array[0] === array[1] && array[0] === array[2] && array[0] !== "") ||
+      (array[3] === array[4] && array[3] === array[5] && array[3] !== "") ||
+      (array[6] === array[7] && array[6] === array[8] && array[6] !== "") ||
+      (array[0] === array[3] && array[0] === array[6] && array[0] !== "") ||
+      (array[1] === array[4] && array[1] === array[7] && array[1] !== "") ||
+      (array[2] === array[5] && array[2] === array[8] && array[2] !== "") ||
+      (array[0] === array[4] && array[0] === array[8] && array[0] !== "") ||
+      (array[2] === array[4] && array[2] === array[6] && array[2] !== "")
+    ) {
+      view.updateText(
+        `the winner is ${players.getCurrentPlayer()}`
+      );
+      gameBoard.removeSquareListeners();
+      game.endGame("win");
+    } else if (
+      (array[0] &&
+        array[1] &&
+        array[2] &&
+        array[3] &&
+        array[4] &&
+        array[5] &&
+        array[6] &&
+        array[7] &&
+        array[8]) !== ""
+    ) {
+      game.endGame("tie");
+    } else {
+      players.switchPlayer();
+    }
+  }
+
   return {
     resetArray,
     removeGrid,
     displayArray,
     removeSquareListeners,
-    gameArray,
+    checkWinningCombo,
   };
 })();
 
