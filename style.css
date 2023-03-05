@@ -74,6 +74,7 @@ header {
   position: absolute;
   justify-self: center;
   align-self: center;
+  margin-top: 4em;
 }
 
 .form-grid {
