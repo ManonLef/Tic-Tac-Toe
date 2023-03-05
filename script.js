@@ -89,8 +89,6 @@ const players = (function () {
 
   // globally accessible
   return {
-    getPlayerOneName,
-    getPlayerTwoName,
     getPlayerOneSymbol,
     getPlayerTwoSymbol,
     getPlayerOneTurn,
@@ -118,17 +116,10 @@ const game = (function () {
       (array[0] === array[4] && array[0] === array[8] && array[0] !== "") ||
       (array[2] === array[4] && array[2] === array[6] && array[2] !== "")
     ) {
-      if (players.getPlayerOneTurn()) {
-        currentView.updateText(
-          currentView.instruction,
-          `the winner is ${players.getPlayerOneName()}`
-        );
-      } else {
-        currentView.updateText(
-          currentView.instruction,
-          `the winner is ${players.getPlayerTwoName()}`
-        );
-      }
+      currentView.updateText(
+        currentView.instruction,
+        `the winner is ${players.getCurrentPlayer()}`
+      );
       gameBoard.removeSquareListeners();
       endGame("win");
     } else if (
@@ -237,7 +228,7 @@ const gameBoard = (function () {
     displayArray();
     currentView.updateText(
       currentView.instruction,
-      `it's ${players.getPlayerOneName()}'s turn`
+      `it's ${players.getCurrentPlayer()}'s turn`
     );
   }
   // globally accessible
