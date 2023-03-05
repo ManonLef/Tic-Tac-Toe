@@ -40,8 +40,8 @@ header {
   justify-content: center;
   align-items: center;
   height: 100%;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
   grid-template-rows: auto auto auto;
   grid-template-columns: 1fr auto 1fr;
   position: relative;
@@ -117,13 +117,34 @@ input:focus {
 
 button {
   appearance: none;
-  padding: 0 1rem;
   height: 2rem;
+  padding: 15px;
   border-radius: 5px;
   border: 2px solid rgba(255, 255, 255, 0.5);
   color: white;
   background-color: rgba(255, 255, 255, 0.4);
   font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.submit-names {
+  margin-top: 1.9em;
+}
+
+.overlays {
+  position: absolute;
+  justify-self: center;
+  align-self: center;
+}
+
+button.pvp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: x-large;
+  padding: 3em;
 }
 
 .gameBoardContainer {

@@ -225,11 +225,10 @@ const gameBoard = (function () {
 // -------------------- UI MODULE ------------------------------- //
 const currentView = (function () {
   // selectors and constants
-  const playModeContainer = document.querySelector(".playSelect");
   const instruction = document.querySelector(".instruction");
   const announce = document.querySelector(".announce");
   const playerForm = document.querySelector(".playerForm");
-
+  const center = document.querySelector(".overlays")
   // helper functions
   function updateText(selector, message) {
     selector.textContent = message;
@@ -241,16 +240,10 @@ const currentView = (function () {
     updateText(announce, "we don't even have a computer")
     // pvp button
     const pvp = document.createElement("button");
-    pvp.textContent = "2 players";
+    pvp.textContent = "START GAME";
     pvp.className = "pvp";
     pvp.addEventListener("click", showPlayerForm);
-    playModeContainer.appendChild(pvp);
-    // pvc button
-    const pvc = document.createElement("button");
-    pvc.textContent = "vs computer";
-    pvc.className = "pvc";
-    pvc.addEventListener("click", showPlayerForm /* p1 only */);
-    playModeContainer.appendChild(pvc);
+    center.appendChild(pvp);
   }
 
   function hideForm() {
@@ -260,8 +253,8 @@ const currentView = (function () {
   function showPlayerForm() {
     currentView.updateText(currentView.instruction, "Choose your names");
     // Temp
-    while (playModeContainer.firstChild) {
-      playModeContainer.removeChild(playModeContainer.firstChild);
+    while (center.firstChild) {
+      center.removeChild(center.firstChild);
     }
 
     if (this.className === "pvp") {
