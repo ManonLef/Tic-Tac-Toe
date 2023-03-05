@@ -42,6 +42,13 @@ const players = (function () {
     return getPlayerTwoSymbol();
   }
 
+  function getCurrentPlayer() {
+    if (getPlayerOneTurn()) {
+      return getPlayerOneName();
+    }
+    return getPlayerTwoName;
+  }
+
   // Set names set on form or revert to default player names
   function setPlayerNames(event) {
     event.preventDefault();
@@ -90,6 +97,7 @@ const players = (function () {
     getPlayerOneTurn,
     getPlayerTwoTurn,
     getCurrentPlayerSymbol,
+    getCurrentPlayer,
     switchPlayer,
   };
 })();
@@ -116,7 +124,6 @@ const game = (function () {
           currentView.instruction,
           `the winner is ${players.getPlayerOneName()}`
         );
-
       } else {
         currentView.updateText(
           currentView.instruction,
@@ -147,7 +154,9 @@ const game = (function () {
   }
 
   // game finishing
-  function endGame() {}
+  function endGame() {
+    currentView.showPlayAgain();
+  }
 
   // globally accessible
   return {
@@ -239,7 +248,7 @@ const currentView = (function () {
     selector.textContent = message;
   }
 
-  // feauture: create playMode buttons
+  // Later feauture: create playMode buttons
   function playModeSelection() {
     updateText(instruction, "Pick a gamemode");
     // pvp button
@@ -248,6 +257,7 @@ const currentView = (function () {
     pvp.className = "pvp";
     pvp.addEventListener("click", showPlayerForm);
     center.appendChild(pvp);
+    // extra buttons
   }
 
   function hideForm() {
@@ -259,10 +269,34 @@ const currentView = (function () {
     playerForm.removeAttribute("hidden");
   }
 
+  function showPlayAgain() {
+    // container
+    const againContainer = document.createElement("div");
+    againContainer.className = "again-container";
+    center.appendChild(againContainer);
+
+    const playAgain = document.createElement("div");
+    playAgain.className = "play-again";
+    playAgain.textContent = `${players.getCurrentPlayer()} WON! Play again?`;
+    againContainer.appendChild(playAgain);
+
+    const yes = document.createElement("button");
+    const no = document.createElement("button");
+
+    yes.className = "play-again-button";
+    no.className = "play-again-button";
+    yes.textContent = "YES";
+    no.textContent = "NO";
+
+    againContainer.appendChild(yes);
+    againContainer.appendChild(no);
+  }
+
   showPlayerForm();
   return {
     hideForm,
     updateText,
     instruction,
+    showPlayAgain,
   };
 })();
