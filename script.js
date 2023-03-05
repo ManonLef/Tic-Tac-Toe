@@ -1,16 +1,8 @@
-// Temporary test functions
-function log(msg) {
-  console.log(msg);
-}
-// End temporary test functions
-
-// -------------------- PLAYERS MODULE ------------------------------- //
-
 const players = (function () {
   // selectors
   const submitNamesBtn = document.querySelector(".submit-names");
-  const playerOneName = document.querySelector("#playerOneName");
-  const playerTwoName = document.querySelector("#playerTwoName");
+  const playerOneName = document.querySelector(".player-one-name");
+  const playerTwoName = document.querySelector(".player-two-name");
 
   // listeners
   submitNamesBtn.addEventListener("click", setPlayerNames);
@@ -171,7 +163,7 @@ const game = (function () {
 // --------------------GAMEBOARD MODULE------------------------------- //
 const gameBoard = (function () {
   // selectors and variables
-  const container = document.querySelector(".gameBoardContainer");
+  const container = document.querySelector(".gameboard-container");
   // variables
   const gameArray = ["", "", "", "", "", "", "", "", ""];
 
@@ -246,7 +238,7 @@ const gameBoard = (function () {
 const currentView = (function () {
   // selectors and constants
   const instruction = document.querySelector(".instruction");
-  const playerForm = document.querySelector(".playerForm");
+  const playerForm = document.querySelector(".player-form");
   const center = document.querySelector(".overlays");
   // helper functions
   function updateText(selector, message) {
@@ -277,7 +269,7 @@ const currentView = (function () {
         .removeChild(document.querySelector(".overlays").firstChild);
     }
 
-    const modal = document.querySelector(".again-container");
+    const modal = document.querySelector(".replay-container");
     if (modal) {
       center.remove(modal);
     }
@@ -290,7 +282,7 @@ const currentView = (function () {
   function showPlayAgain(winOrTie) {
     // container
     const againContainer = document.createElement("div");
-    againContainer.className = "again-container";
+    againContainer.className = "replay-container";
     center.appendChild(againContainer);
 
     const playAgain = document.createElement("div");
