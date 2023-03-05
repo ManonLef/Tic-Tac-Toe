@@ -1,5 +1,4 @@
 const players = (function () {
-
   const submitNamesBtn = document.querySelector(".submit-names");
   const playerOneName = document.querySelector(".player-one-name");
   const playerTwoName = document.querySelector(".player-two-name");
@@ -51,6 +50,9 @@ const players = (function () {
     }
     view.hideForm();
     game.newGame();
+    
+    playerOneName.value = "";
+    playerTwoName.value = "";
   }
 
   function switchPlayer() {
@@ -72,7 +74,6 @@ const players = (function () {
 })();
 
 const game = (function () {
-
   function newGame() {
     if (document.querySelector(".overlays").firstChild) {
       document
@@ -95,7 +96,6 @@ const game = (function () {
 })();
 
 const gameBoard = (function () {
-
   const container = document.querySelector(".gameboard-container");
   const gameArray = ["", "", "", "", "", "", "", "", ""];
 
@@ -193,7 +193,6 @@ const gameBoard = (function () {
 })();
 
 const view = (function () {
-
   const topMessage = document.querySelector(".top-message");
   const playerForm = document.querySelector(".player-form");
   const center = document.querySelector(".overlays");
