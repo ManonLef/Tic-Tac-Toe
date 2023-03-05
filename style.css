@@ -147,7 +147,7 @@ button.pvp {
   padding: 3em;
 }
 
-.gameBoardContainer {
+.gameboard-container {
   display: grid;
   grid-template-columns: repeat(3, minmax(50px, 100px));
   grid-template-rows: repeat(3, minmax(50px, 100px));
@@ -157,7 +157,7 @@ button.pvp {
   padding: 10px;
 }
 
-.gameBoardContainer > div {
+.gameboard-container > div {
   height: 100%;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.3);
@@ -182,7 +182,7 @@ img {
   pointer-events: none;
 }
 
-.again-container {
+.replay-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
