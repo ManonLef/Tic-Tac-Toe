@@ -1,3 +1,5 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable no-use-before-define */
 const players = (function () {
   const submitNamesBtn = document.querySelector(".submit-names");
   const playerOneName = document.querySelector(".player-one-name");
@@ -49,7 +51,7 @@ const players = (function () {
       playerOne.name = playerOneName.value;
       playerTwo.name = "Player 2";
     }
-    currentView.hideForm();
+    view.hideForm();
     game.newGame();
   }
 
@@ -61,8 +63,8 @@ const players = (function () {
       playerOne.currentPlayer = true;
       playerTwo.currentPlayer = false;
     }
-    currentView.updateText(
-      currentView.instruction,
+    view.updateText(
+      view.topMessage,
       `it's ${getCurrentPlayer()}'s turn`
     );
   }
@@ -84,8 +86,8 @@ const game = (function () {
     }
     gameBoard.resetArray();
     gameBoard.displayArray();
-    currentView.updateText(
-      currentView.instruction,
+    view.updateText(
+      view.topMessage,
       `it's ${players.getCurrentPlayer()}'s turn`
     );
   }
@@ -102,8 +104,8 @@ const game = (function () {
       (array[0] === array[4] && array[0] === array[8] && array[0] !== "") ||
       (array[2] === array[4] && array[2] === array[6] && array[2] !== "")
     ) {
-      currentView.updateText(
-        currentView.instruction,
+      view.updateText(
+        view.topMessage,
         `the winner is ${players.getCurrentPlayer()}`
       );
       gameBoard.removeSquareListeners();
@@ -127,7 +129,7 @@ const game = (function () {
 
 
   function endGame(winOrTie) {
-    currentView.showPlayAgain(winOrTie);
+    view.showPlayAgain(winOrTie);
   }
 
   // globally accessible
@@ -138,17 +140,14 @@ const game = (function () {
   };
 })();
 
-// --------------------GAMEBOARD MODULE------------------------------- //
 const gameBoard = (function () {
-  // selectors and variables
   const container = document.querySelector(".gameboard-container");
-  // variables
   const gameArray = ["", "", "", "", "", "", "", "", ""];
 
-  // player move and put mark on board
   function addSymbolToBoard() {
     const index = this.getAttribute("data-value");
     if (gameArray[index] !== "") {
+      // do nothing
     } else {
       gameArray[index] = players.getCurrentPlayerSymbol();
       displayArray();
@@ -156,7 +155,6 @@ const gameBoard = (function () {
     }
   }
 
-  // render functions
   function renderSquares(arrayItem) {
     const square = document.createElement("div");
     square.setAttribute("data-value", [arrayItem]);
@@ -167,7 +165,7 @@ const gameBoard = (function () {
       img.src = "./notes and resources/circle.svg";
       img.className = "circle";
     }
-    square.addEventListener("click", gameBoard.addSymbolToBoard);
+    square.addEventListener("click", addSymbolToBoard);
     container.appendChild(square);
     square.appendChild(img);
   }
@@ -181,7 +179,7 @@ const gameBoard = (function () {
   function removeSquareListeners() {
     const squares = container.children;
     for (square of squares) {
-      square.removeEventListener("click", gameBoard.addSymbolToBoard);
+      square.removeEventListener("click", addSymbolToBoard);
     }
   }
 
@@ -198,21 +196,17 @@ const gameBoard = (function () {
     }
   }
 
-  // globally accessible
   return {
     resetArray,
     removeGrid,
     displayArray,
     gameArray,
-    addSymbolToBoard,
     removeSquareListeners,
   };
 })();
 
-// -------------------- UI MODULE ------------------------------- //
-const currentView = (function () {
-  // selectors and constants
-  const instruction = document.querySelector(".instruction");
+const view = (function () {
+  const topMessage = document.querySelector(".top-message");
   const playerForm = document.querySelector(".player-form");
   const center = document.querySelector(".overlays");
   // helper functions
@@ -222,7 +216,7 @@ const currentView = (function () {
 
   // Later feauture: create playMode buttons
   function playModeSelection() {
-    updateText(instruction, "Pick a gamemode");
+    updateText(topMessage, "Pick a gamemode");
     // pvp button
     const pvp = document.createElement("button");
     pvp.textContent = "START GAME";
@@ -248,9 +242,8 @@ const currentView = (function () {
     if (modal) {
       center.remove(modal);
     }
-
     gameBoard.removeGrid();
-    updateText(instruction, "Enter Player Names");
+    updateText(topMessage, "Enter Player Names");
     playerForm.removeAttribute("hidden");
   }
 
@@ -290,7 +283,7 @@ const currentView = (function () {
   return {
     hideForm,
     updateText,
-    instruction,
+    topMessage,
     showPlayAgain,
   };
 })();
