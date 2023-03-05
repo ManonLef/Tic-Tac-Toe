@@ -229,7 +229,7 @@ const currentView = (function () {
     selector.textContent = message;
   }
 
-  // create playMode buttons
+  // feauture: create playMode buttons
   function playModeSelection() {
     updateText(instruction, "Pick a gamemode");
     // pvp button
@@ -245,30 +245,12 @@ const currentView = (function () {
   }
 
   function showPlayerForm() {
-    currentView.updateText(currentView.instruction, "Choose your names");
-    // Temp
-    while (center.firstChild) {
-      center.removeChild(center.firstChild);
-    }
-
-    if (this.className === "pvp") {
-      updateText(instruction, "PVP Gamemode");
-
-      playerForm.removeAttribute("hidden");
-    } else {
-      updateText(instruction, "pvc selected");
-    }
-    // remove playmode buttons
-
-    // End Temp
+    updateText(instruction, "Enter PLayer Names");
+    playerForm.removeAttribute("hidden");
   }
 
-  // Temp Render
-  playModeSelection();
-
-  // globally accessible
+showPlayerForm()
   return {
-    playModeSelection,
     hideForm,
     updateText,
     instruction,
