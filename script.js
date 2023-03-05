@@ -56,7 +56,6 @@ const players = (function () {
       playerTwo.name = "Player 2";
     }
     currentView.updateText(currentView.instruction, "Game in Progress");
-
     currentView.hideForm();
     gameBoard.newGame();
     // add view: update top text
@@ -67,10 +66,12 @@ const players = (function () {
       playerOne.currentPlayer = false;
       playerTwo.currentPlayer = true;
       playerSymbol = playerTwo.symbol;
+      currentView.updateText(currentView.instruction, `it's ${getPlayerTwoName()}'s turn`);
     } else {
       playerOne.currentPlayer = true;
       playerTwo.currentPlayer = false;
       playerSymbol = playerOne.symbol;
+      currentView.updateText(currentView.instruction, `it's ${getPlayerOneName()}'s turn`);
     }
   }
 
@@ -203,11 +204,9 @@ const gameBoard = (function () {
   }
 
   function newGame() {
-    // do stuff
-    // Temporary stuff
     resetArray();
     displayArray();
-    // End Temporary Stuff
+    currentView.updateText(currentView.instruction, `it's ${players.getPlayerOneName()}'s turn`);
   }
   // globally accessible
   return {
