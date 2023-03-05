@@ -24,7 +24,7 @@ const players = (function () {
 
   // add players
   const playerOne = playerFactory("Player 1", "X", true);
-  const playerTwo = playerFactory("Player 2", "0", false);
+  const playerTwo = playerFactory("Player 2", "O", false);
 
   const getPlayerOneName = () => playerOne.name;
   const getPlayerTwoName = () => playerTwo.name;
@@ -174,9 +174,15 @@ const gameBoard = (function () {
   function renderSquares(arrayItem) {
     const square = document.createElement("div");
     square.setAttribute("data-value", [arrayItem]);
-    square.textContent = gameArray[arrayItem];
+    const img = document.createElement("img")
+    if (gameArray[arrayItem] === "X") {
+      img.src = "./notes and resources/cross.svg"
+    } else if (gameArray[arrayItem] === "O") {
+      img.src = "./notes and resources/circle.svg"
+    }
     square.addEventListener("click", gameBoard.addSymbolToBoard);
     container.appendChild(square);
+    square.appendChild(img)
   }
 
   function removeGrid() {
