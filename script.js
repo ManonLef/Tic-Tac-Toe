@@ -200,8 +200,8 @@ const gameBoard = (function () {
     resetArray,
     removeGrid,
     displayArray,
-    gameArray,
     removeSquareListeners,
+    gameArray,
   };
 })();
 
@@ -209,21 +209,10 @@ const view = (function () {
   const topMessage = document.querySelector(".top-message");
   const playerForm = document.querySelector(".player-form");
   const center = document.querySelector(".overlays");
-  // helper functions
+  const modal = document.querySelector(".replay-container");
+
   function updateText(selector, message) {
     selector.textContent = message;
-  }
-
-  // Later feauture: create playMode buttons
-  function playModeSelection() {
-    updateText(topMessage, "Pick a gamemode");
-    // pvp button
-    const pvp = document.createElement("button");
-    pvp.textContent = "START GAME";
-    pvp.className = "pvp";
-    pvp.addEventListener("click", showPlayerForm);
-    center.appendChild(pvp);
-    // extra buttons
   }
 
   function hideForm() {
@@ -231,14 +220,9 @@ const view = (function () {
   }
 
   function showPlayerForm() {
-    // check for modal
-    if (document.querySelector(".overlays").firstChild) {
-      document
-        .querySelector(".overlays")
-        .removeChild(document.querySelector(".overlays").firstChild);
+    if (center.firstChild) {
+      center.removeChild(center.firstChild);
     }
-
-    const modal = document.querySelector(".replay-container");
     if (modal) {
       center.remove(modal);
     }
@@ -277,7 +261,6 @@ const view = (function () {
     }
   }
 
-  // start screen:
   showPlayerForm();
 
   return {
@@ -287,3 +270,14 @@ const view = (function () {
     showPlayAgain,
   };
 })();
+
+  // WROTE THIS INCLUDING PVC MODE FOR A LATER FEATURE.
+  // Location: view
+  // function playModeSelection() {
+  //   updateText(topMessage, "Pick a gamemode");
+  //   const pvp = document.createElement("button");
+  //   pvp.textContent = "START GAME";
+  //   pvp.className = "pvp";
+  //   pvp.addEventListener("click", showPlayerForm);
+  //   center.appendChild(pvp);
+  // }
