@@ -170,7 +170,8 @@ button.pvp {
 
 img {
   height: 90%;
-  opacity: 100%s;
+  opacity: 100%;
+  justify-self: center;
 }
 
 .circle {
