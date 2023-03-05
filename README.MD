@@ -1,7 +1,7 @@
 # TIC TAC TOE
 
 ## Result
-[See it live and play a game here](https://github.com/ManonLef/Tic-Tac-Toe/deployments/activity_log?environment=github-pages)
+[See it live and play a game here](https://manonlef.github.io/Tic-Tac-Toe/)
 ![Preview of my Tic Tac Toe](./notes%20and%20resources/Tic-Tac-Show.png)
 
 ## About this project
