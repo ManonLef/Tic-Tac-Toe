@@ -79,6 +79,6 @@ Some things left to do:
   - [x] remove gamemode selection and just start game with playerform for now
   - [x] add an overlay if there's a winner to ask for a new game
 - [x] add overlay message when there's a tie
-- [ ] clear form after modal for new game
+- [x] clear form after modal for new game
 - [x] refactor
 - NOTE: I could probably move everything from the game module to the gameBoard seeing as there are merely two items left... Another option would be to export the gameArray through a function and put some gameBoard functions back in the game module
