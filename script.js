@@ -64,7 +64,6 @@ const players = (function () {
       playerTwo.currentPlayer = false;
     }
     view.updateText(
-      view.topMessage,
       `it's ${getCurrentPlayer()}'s turn`
     );
   }
@@ -87,7 +86,6 @@ const game = (function () {
     gameBoard.resetArray();
     gameBoard.displayArray();
     view.updateText(
-      view.topMessage,
       `it's ${players.getCurrentPlayer()}'s turn`
     );
   }
@@ -105,7 +103,6 @@ const game = (function () {
       (array[2] === array[4] && array[2] === array[6] && array[2] !== "")
     ) {
       view.updateText(
-        view.topMessage,
         `the winner is ${players.getCurrentPlayer()}`
       );
       gameBoard.removeSquareListeners();
@@ -211,8 +208,8 @@ const view = (function () {
   const center = document.querySelector(".overlays");
   const modal = document.querySelector(".replay-container");
 
-  function updateText(selector, message) {
-    selector.textContent = message;
+  function updateText(message) {
+    topMessage.textContent = message;
   }
 
   function hideForm() {
@@ -227,12 +224,11 @@ const view = (function () {
       center.remove(modal);
     }
     gameBoard.removeGrid();
-    updateText(topMessage, "Enter Player Names");
+    updateText("Enter Player Names");
     playerForm.removeAttribute("hidden");
   }
 
   function showPlayAgain(winOrTie) {
-    // container
     const againContainer = document.createElement("div");
     againContainer.className = "replay-container";
     center.appendChild(againContainer);
@@ -266,7 +262,6 @@ const view = (function () {
   return {
     hideForm,
     updateText,
-    topMessage,
     showPlayAgain,
   };
 })();
