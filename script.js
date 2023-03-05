@@ -179,6 +179,7 @@ const gameBoard = (function () {
       img.src = "./notes and resources/cross.svg"
     } else if (gameArray[arrayItem] === "O") {
       img.src = "./notes and resources/circle.svg"
+      img.className = "circle";
     }
     square.addEventListener("click", gameBoard.addSymbolToBoard);
     container.appendChild(square);

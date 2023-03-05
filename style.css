@@ -5,8 +5,9 @@
   --color1: #383838;
   --color2: #777777;
   --color3: #949494;
-  --color4: #c6c6c6;
+  --color4: #99b4b4;
   --color5: #f5f5f5;
+  --color6: white;
 }
 body {
   height: 100vh;
@@ -32,10 +33,16 @@ footer {
   display: grid;
   justify-content: center;
   align-items: center;
-  background-color: var(--color3);
+  background-color: var(--color6);
   height: 100%;
   grid-template-rows: auto 1fr auto;
   grid-template-columns: 1fr auto 1fr;
+  background: rgb(188, 131, 191);
+  background: linear-gradient(
+    311deg,
+    rgba(188, 131, 191, 1) 30%,
+    rgba(0, 165, 255, 1) 100%
+  );
 }
 
 .board-or-form {
@@ -61,14 +68,14 @@ footer {
   grid-template-rows: repeat(3, minmax(50px, 100px));
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 5px;
   padding: 10px;
 }
 
 .gameBoardContainer > div {
   height: 100%;
   width: 100%;
-  background-color: var(--color4);
+  background-color: rgba(255, 255, 255, 0.3);
   border-radius: 5px;
 
   display: grid;
@@ -78,4 +85,9 @@ footer {
 
 img {
   height: 90%;
+  opacity: 100%s;
+}
+
+.circle {
+  height: 75%;
 }
